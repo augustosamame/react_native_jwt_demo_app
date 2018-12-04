@@ -14,10 +14,10 @@ export default class CategoryList extends React.Component {
 
   renderCategories() {
     return this.state.categories.map (category => <CategoryDetail
-                                                  key={category.id}
-                                                  name={category.attributes.name}
-                                                  image={category.attributes.image.large.url}
-                                                   /> );
+                                                    key={category.id}
+                                                    category={category}
+                                                  />
+                                      );
   }
 
   render() {
@@ -32,8 +32,8 @@ export default class CategoryList extends React.Component {
 
 const styles = StyleSheet.create({
  container: {
-    alignSelf: 'stretch',
     flex: 1,
     backgroundColor: '#eee',
+    justifyContent: 'space-between',
   }
 });

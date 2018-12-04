@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
   },
   headerText: {
     textAlign: 'center',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
     fontSize: 20,
     fontFamily:
       Platform.OS === 'ios' ? 'AvenirNext-Regular' : 'Roboto',

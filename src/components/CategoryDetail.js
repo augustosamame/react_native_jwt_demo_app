@@ -4,12 +4,12 @@ import { Text, StyleSheet, View, ImageBackground } from 'react-native';
 export default class CategoryDetail extends React.Component {
 
   render() {
-    let pic = { uri: this.props.image };
+    let pic = { uri: this.props.category.attributes.image.large.url };
     console.log({pic});
     return (
-      <View>
+      <View style={ styles.viewContainer }>
         <ImageBackground source={pic} style={styles.imgContainer}>
-          <Text style={styles.titleText}>{this.props.name}</Text>
+          <Text style={styles.titleText}>{this.props.category.attributes.name}</Text>
         </ImageBackground>
       </View>
     );
@@ -17,14 +17,21 @@ export default class CategoryDetail extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  viewContainer: {
+    flex: 0.25,
+  },
  imgContainer: {
-    height: 150,
-    width: 400,
+    width: null,
+    height: null,
+    resizeMode: 'cover',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   },
   titleText: {
     color: "#fff",
     fontSize: 40,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
   }
 });

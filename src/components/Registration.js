@@ -1,20 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View } from 'react-native';
-import { Input, TextLink, Loading, Button } from './common';
+import { View, Text } from 'react-native';
+import { Input, TextLink, Button, Loading } from './common';
 
-class Login extends Component {
+class Registration extends Component {
   constructor(props){
     super(props);
     this.state = {
       email: '',
       password: '',
+      password_confirmation: '',
       error: '',
       loading: false
     };
   }
 
   render() {
-    const { email, password, error, loading } = this.state;
+    const { email, password, password_confirmation, error, loading } = this.state;
     const { form, section, errorTextStyle } = styles;
 
     return (
@@ -39,20 +40,29 @@ class Login extends Component {
             />
           </View>
 
+          <View style={section}>
+            <Input
+              secureTextEntry
+              placeholder="confirm password"
+              label="Confirm Password"
+              value={password_confirmation}
+              onChangeText={password_confirmation => this.setState({ password_confirmation })}
+            />
+          </View>
           <Text style={errorTextStyle}>
             {error}
           </Text>
 
           {!loading ?
             <Button>
-              Login
+              Register
             </Button>
             :
             <Loading size={'large'} />}
 
         </View>
         <TextLink onPress={this.props.authSwitch}>
-          Dont have an account? Register!
+          Already have an account? Log in!
         </TextLink>
       </Fragment>
     );
@@ -78,4 +88,4 @@ const styles = {
   }
 };
 
-export { Login };
+export { Registration };
