@@ -4,6 +4,7 @@ import { Asset, Font, Icon } from 'expo';
 //import AppNavigator from './src/AppNavigator';
 import TabNavigator from './src/TabNavigator';
 import AuthNavigator from './src/AuthNavigator';
+import './ReactotronConfig';
 
 export default class App extends React.Component {
 
@@ -12,7 +13,15 @@ export default class App extends React.Component {
     this.state = {
       jwt: '',
     };
+    this.newJWT = this.newJWT.bind(this);
   }
+
+  newJWT(jwt){
+    this.setState({
+      jwt: jwt
+    });
+  }
+
 
   state = {
     isLoadingComplete: false,
@@ -20,10 +29,11 @@ export default class App extends React.Component {
 
   render() {
     if (!this.state.jwt) {
+      console.log(this.props, '<=== app.js');
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AuthNavigator />
+          <AuthNavigator screenProps={{setToken: this.newJWT }} />
         </View>
       );
     } else {

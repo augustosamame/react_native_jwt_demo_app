@@ -21,11 +21,11 @@ export default class AuthScreen extends Component {
   whichForm() {
     if (!this.state.showLogin) {
       return (
-        <Registration authSwitch={this.authSwitch} />
+        <Registration newJWT={this.props.setToken} authSwitch={this.authSwitch} />
       );
     } else {
       return (
-        <Login authSwitch={this.authSwitch}/>
+        <Login newJWT={this.props.setToken} authSwitch={this.authSwitch}/>
       );
     }
   }

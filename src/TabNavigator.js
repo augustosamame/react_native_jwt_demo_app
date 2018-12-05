@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
+import { createAppContainer, createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';

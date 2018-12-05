@@ -5,26 +5,17 @@ import AuthScreen from './screens/AuthScreen';
 
 const AuthNavigator = createBottomTabNavigator(
   {
-  Auth: { screen: AuthScreen,
-              navigationOptions: {
-                //tabBarLabel: 'Perfil',
-                tabBarIcon: ({ tintColor, focused }) => (
-              <Ionicons
-                name={focused ? 'ios-person' : 'ios-person'}
-                size={26}
-                style={{ color: tintColor }}
-              />
-            ),
-      }
+  Auth: (props) => {
+    return <AuthScreen {...props.screenProps} />;
+  }
   },
-},
   { initialRouteName: 'Auth',
     tabBarOptions: {
       showLabel: false,
-      activeTintColor: '#ff6600',
-      activeBackgroundColor: '#333',
-      inactiveTintColor: '#ff6600',
-      inactiveBackgroundColor: '#333',
+      activeTintColor: '#fff',
+      activeBackgroundColor: '#fff',
+      inactiveTintColor: '#fff',
+      inactiveBackgroundColor: '#fff',
     }
   }
 );
