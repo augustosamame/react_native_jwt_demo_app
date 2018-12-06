@@ -48,7 +48,7 @@ class Registration extends Component {
 
   onRegistrationFail() {
     this.setState({
-      error: 'Registration Failed',
+      error: 'Error en el registro',
       loading: false
     });
   }

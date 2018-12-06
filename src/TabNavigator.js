@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer, createMaterialTopTabNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -9,22 +9,22 @@ import CartScreen from './screens/CartScreen';
 
 const TabNavigator = createBottomTabNavigator(
   {
-
-  Profile: { screen: ProfileScreen,
-              navigationOptions: {
-                //tabBarLabel: 'Perfil',
-                tabBarIcon: ({ tintColor, focused }) => (
-              <Ionicons
-                name={focused ? 'ios-person' : 'ios-person'} //TODO change to focused icon
-                size={26}
-                style={{ color: tintColor }}
-              />
-            ),
-      }
+  Profile: {
+    screen: props => <ProfileScreen {...props.screenProps} />,
+    navigationOptions: {
+        //tabBarLabel: 'Perfil',
+        tabBarIcon: ({ tintColor, focused }) => (
+      <Ionicons
+        name={focused ? 'ios-person' : 'ios-person'} //TODO change to focused icon
+        size={26}
+        style={{ color: tintColor }}
+      />
+    ),
+  }
   },
-  Home: { screen: HomeScreen,
-          navigationOptions: {
-            //tabBarLabel: 'Inicio',
+  Home: {
+    screen: props => <HomeScreen {...props.screenProps} />,
+    navigationOptions: {
             tabBarIcon: ({ tintColor, focused }) => (
           <Ionicons
             name={focused ? 'ios-home' : 'ios-home'}
@@ -39,8 +39,8 @@ const TabNavigator = createBottomTabNavigator(
           //                />
         //},
         }
-      },
-  Quotes: { screen: QuotesScreen,
+  },
+  Quotes: { screen: props => <QuotesScreen {...props.screenProps} />,
               navigationOptions: {
                 //tabBarLabel: 'Perfil',
                 tabBarIcon: ({ tintColor, focused }) => (
@@ -52,7 +52,7 @@ const TabNavigator = createBottomTabNavigator(
             ),
       }
   },
-  Notifications: { screen: NotificationsScreen,
+  Notifications: { screen: props => <NotificationsScreen {...props.screenProps} />,
               navigationOptions: {
                 //tabBarLabel: 'Perfil',
                 tabBarIcon: ({ tintColor, focused }) => (
@@ -64,7 +64,7 @@ const TabNavigator = createBottomTabNavigator(
             ),
       }
   },
-  Cart: { screen: CartScreen,
+  Cart: { screen: props => <CartScreen {...props.screenProps} />,
               navigationOptions: {
                 //tabBarLabel: 'Perfil',
                 tabBarIcon: ({ tintColor, focused }) => (
@@ -77,7 +77,7 @@ const TabNavigator = createBottomTabNavigator(
       }
   },
 },
-  { initialRouteName: 'Home',
+  { initialRouteName: 'Profile',
     tabBarOptions: {
       showLabel: false,
       activeTintColor: '#ff6600',

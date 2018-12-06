@@ -35,6 +35,14 @@ class Login extends Component {
     })
     .catch((error) => {
       console.log(error);
+      this.onLoginFail();
+    });
+  }
+
+  onLoginFail() {
+    this.setState({
+      error: 'Error al iniciar sesión',
+      loading: false
     });
   }
 
@@ -64,21 +72,23 @@ class Login extends Component {
             />
           </View>
 
-          <Text style={errorTextStyle}>
-            {error}
-          </Text>
-
-          {!loading ?
-            <Button onPress={this.loginUser}>
-              Iniciar Sesión
-            </Button>
-            :
-            <Loading size={'large'} />}
-
         </View>
-        <TextLink onPress={this.props.authSwitch}>
-          Nuevo Registro
+        <TextLink style={{ marginTop: 10 }} onPress={this.props.authSwitch}>
+          Aún no estas registrado? Regístrate
         </TextLink>
+        <TextLink onPress={this.props.forgotPassword}>
+          Olvidaste tu contraseña?
+        </TextLink>
+        <Text style={errorTextStyle}>
+          {error}
+        </Text>
+
+        {!loading ?
+          <Button onPress={this.loginUser}>
+            Ingresar
+          </Button>
+          :
+          <Loading size={'large'} />}
       </Fragment>
     );
   }
@@ -100,7 +110,7 @@ const styles = {
     alignSelf: 'center',
     fontSize: 18,
     color: 'red'
-  }
+  },
 };
 
 export { Login };
