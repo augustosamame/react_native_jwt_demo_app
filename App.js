@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Asset, Font, Icon } from 'expo';
+import axios from 'axios';
 import { Loading } from './src/components/common/';
 import deviceStorage from './src/services/deviceStorage.js';
 import TabNavigator from './src/TabNavigator';
@@ -22,16 +23,38 @@ export default class App extends React.Component {
     this.loadJWT();
   }
 
-  newJWT(jwt){
-    this.setState({
-      jwt: jwt
-    });
-  }
-
-
   state = {
     isLoadingComplete: false,
   };
+
+  getNotificationCount() {
+    console.log(this.state.jwt + '<= state when calling notification with API');
+    const headers = {
+      Authorization: this.state.jwt
+    };
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3000/user',
+      headers: headers,
+    }).then((response) => {
+      this.setState({
+        unreadMessagesCount: response.data.data.attributes.unread_notifications_count,
+        loading: false
+      });
+    }).catch((error) => {
+      this.setState({
+        error: 'Error retrieving count of',
+        loading: false
+      });
+    });
+  }
+
+  newJWT(jwt) {
+    this.setState({
+      jwt: jwt
+    });
+    this.getNotificationCount();
+  }
 
   render() {
     if (this.state.loading) {
@@ -50,7 +73,11 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <TabNavigator screenProps={{ jwt: this.state.jwt, deleteToken: this.deleteJWT }}
+          <TabNavigator
+          screenProps={{ jwt: this.state.jwt,
+                         unreadMessagesCount: this.state.unreadMessagesCount,
+                         deleteToken: this.deleteJWT
+                      }}
           />
         </View>
       );

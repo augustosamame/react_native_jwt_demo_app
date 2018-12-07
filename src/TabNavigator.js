@@ -1,6 +1,8 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import IconBadge from 'react-native-icon-badge';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import QuotesScreen from './screens/QuotesScreen';
@@ -53,16 +55,34 @@ const TabNavigator = createBottomTabNavigator(
       }
   },
   Notifications: { screen: props => <NotificationsScreen {...props.screenProps} />,
-              navigationOptions: {
+              navigationOptions: ({ screenProps }) => ({
                 //tabBarLabel: 'Perfil',
                 tabBarIcon: ({ tintColor, focused }) => (
-              <Ionicons
-                name={focused ? 'ios-notifications' : 'ios-notifications'}
-                size={26}
-                style={{ color: tintColor }}
-              />
-            ),
-      }
+
+                  <IconBadge
+                    MainElement={
+                      <Ionicons
+                        name={focused ? 'ios-notifications' : 'ios-notifications'}
+                        size={26}
+                        style={{ color: tintColor }}
+                      />
+                    }
+                    BadgeElement={
+                      <Text style={{ color: '#FFFFFF' }}>{screenProps.unreadMessagesCount}</Text>
+                    }
+                    IconBadgeStyle={{ width: 15,
+                      height: 15,
+                      position: 'absolute',
+                      top: 1,
+                      left: -6,
+                      marginLeft: 15,
+                      backgroundColor: 'red' }}
+                    Hidden={screenProps.unreadMessagesCount === 0}
+                  />
+
+            )
+          })
+
   },
   Cart: { screen: props => <CartScreen {...props.screenProps} />,
               navigationOptions: {

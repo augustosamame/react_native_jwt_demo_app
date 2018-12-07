@@ -1,6 +1,29 @@
 import { AsyncStorage } from 'react-native';
+import axios from 'axios';
 
 const deviceStorage = {
+
+  getNotificationCount() {
+    console.log(this.state.jwt + '<= state when calling notification with API');
+    const headers = {
+      Authorization: this.state.jwt
+    };
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3000/user',
+      headers: headers,
+    }).then((response) => {
+      this.setState({
+        unreadMessagesCount: response.data.data.attributes.unread_notifications_count,
+        loading: false
+      });
+    }).catch((error) => {
+      this.setState({
+        error: 'Error retrieving count of',
+        loading: false
+      });
+    });
+  },
 
   async saveKey(key, value) {
     try {
@@ -18,6 +41,7 @@ const deviceStorage = {
           jwt: value,
           loading: false
         });
+        this.getNotificationCount();
       } else {
         this.setState({
           loading: false

@@ -13,7 +13,7 @@ export default class NotificationDetail extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text>{this.props.notification.attributes.title}</Text>
+          <Text style={styles.headerText}>{this.props.notification.attributes.title}</Text>
         </View>
         <View style={styles.TextContainer}>
           <Text>{this.props.notification.attributes.text}</Text>
@@ -47,12 +47,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   headerText: {
-    textAlign: 'center',
     fontWeight: 'bold',
-    textTransform: 'uppercase',
-    fontSize: 20,
-    fontFamily:
-      Platform.OS === 'ios' ? 'AvenirNext-Regular' : 'Roboto',
   },
 
 });
