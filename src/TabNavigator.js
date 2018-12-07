@@ -77,7 +77,7 @@ const TabNavigator = createBottomTabNavigator(
       }
   },
 },
-  { initialRouteName: 'Profile',
+  { initialRouteName: 'Notifications',
     tabBarOptions: {
       showLabel: false,
       activeTintColor: '#ff6600',

@@ -5,6 +5,7 @@ import { Loading } from './src/components/common/';
 import deviceStorage from './src/services/deviceStorage.js';
 import TabNavigator from './src/TabNavigator';
 import AuthNavigator from './src/AuthNavigator';
+import globalStyles from './src/globalStyles';
 import './ReactotronConfig';
 
 export default class App extends React.Component {
@@ -35,7 +36,7 @@ export default class App extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading size={'large'} />
+        <Loading style={globalStyles.loading} size={'large'} />
        );
     } else if (!this.state.jwt) {
       //console.log(this.props, '<=== app.js');
@@ -61,5 +62,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'center',
   },
 });
