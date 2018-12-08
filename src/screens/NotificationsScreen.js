@@ -36,7 +36,7 @@ export default class NotificationsScreen extends React.Component {
   render() {
       if (this.state.loading) {
         return (
-          <Loading style={globalStyles.loading} size={'large'} />
+          <Loading size={'large'} />
          );
       } else {
         return (

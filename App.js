@@ -59,7 +59,7 @@ export default class App extends React.Component {
   render() {
     if (this.state.loading) {
       return (
-        <Loading style={globalStyles.loading} size={'large'} />
+        <Loading size={'large'} />
        );
     } else if (!this.state.jwt) {
       //console.log(this.props, '<=== app.js');
