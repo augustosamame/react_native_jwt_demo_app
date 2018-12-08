@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import axios from 'axios';
+import * as api from '../services/api'
 import CategoryDetail from './CategoryDetail';
 
 export default class CategoryList extends React.Component {
@@ -8,7 +8,7 @@ export default class CategoryList extends React.Component {
   state = { categories: [] };
 
   componentWillMount() {
-    axios.get('http://localhost:3000/categories')
+    api.get('/categories')
     .then(response => this.setState({ categories: response.data.data }))
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import axios from 'axios';
+import * as api from '../services/api'
 import Header from '../components/Header';
 import { Loading } from '../components/common/';
 
@@ -23,11 +23,8 @@ export default class ProfileScreen extends React.Component {
     const headers = {
       Authorization: this.props.jwt
     };
-    axios({
-      method: 'GET',
-      url: 'http://localhost:3000/user',
-      headers: headers,
-    }).then((response) => {
+    api.get('/user')
+    .then((response) => {
       this.setState({
         email: response.data.data.attributes.email,
         phone: response.data.data.attributes.phone,

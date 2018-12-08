@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, ScrollView, Text, Button, StyleSheet } from 'react-native';
-import axios from 'axios';
 import Header from '../components/Header';
 import NotificationCardSection from '../components/notificationsScreen/NotificationCardSection';
 import NotificationCardList from '../components/notificationsScreen/NotificationCardList';
 import { Loading } from '../components/common/';
 import globalStyles from '../globalStyles';
+import * as api from '../services/api'
 
 export default class NotificationsScreen extends React.Component {
   constructor(props) {
@@ -18,14 +18,9 @@ export default class NotificationsScreen extends React.Component {
   }
 
   componentDidMount() {
-    const headers = {
-      Authorization: this.props.jwt
-    };
-    axios({
-      method: 'GET',
-      url: 'http://localhost:3000/notifications',
-      headers: headers,
-    }).then((response) => {
+    api.get(
+      '/notifications'
+    ).then((response) => {
       this.setState({
         notifications: response.data.data,
         loading: false

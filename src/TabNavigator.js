@@ -97,7 +97,7 @@ const TabNavigator = createBottomTabNavigator(
       }
   },
 },
-  { initialRouteName: 'Notifications',
+  { initialRouteName: 'Quotes',
     tabBarOptions: {
       showLabel: false,
       activeTintColor: '#ff6600',

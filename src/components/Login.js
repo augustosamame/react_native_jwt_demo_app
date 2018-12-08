@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
 import { Input, TextLink, Loading, Button } from './common';
+import Header from '../components/Header';
 
 class Login extends Component {
   constructor(props){
@@ -48,10 +49,11 @@ class Login extends Component {
 
   render() {
     const { username, password, error, loading } = this.state;
-    const { form, section, errorTextStyle } = styles;
+    const { container, form, section, errorTextStyle } = styles;
 
     return (
       <Fragment>
+        <Header title="Login" />
         <View style={form}>
           <View style={section}>
             <Input
@@ -95,6 +97,9 @@ class Login extends Component {
 }
 
 const styles = {
+  container: {
+    flex: 1
+  },
   form: {
     width: '100%',
     borderTopWidth: 1,

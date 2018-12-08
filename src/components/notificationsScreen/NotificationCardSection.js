@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   headerText: {
     marginLeft: 20,
     fontSize: 20,
+    fontWeight: '400',
     fontFamily:
       Platform.OS === 'ios' ? 'AvenirNext-Regular' : 'Roboto',
   },

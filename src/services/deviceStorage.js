@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import axios from 'axios';
+import * as api from '../services/api'
 
 const deviceStorage = {
 
@@ -8,11 +8,8 @@ const deviceStorage = {
     const headers = {
       Authorization: this.state.jwt
     };
-    axios({
-      method: 'GET',
-      url: 'http://localhost:3000/user',
-      headers: headers,
-    }).then((response) => {
+    api.get('/user')
+    .then((response) => {
       this.setState({
         unreadMessagesCount: response.data.data.attributes.unread_notifications_count,
         loading: false

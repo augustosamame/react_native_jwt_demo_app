@@ -6,7 +6,7 @@ export default class QuotesScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Header title="Cotizaciones" />
+        <Header title="Mi Historial de Cotizaciones" />
         <Button
           title="Go back"
           onPress={() => this.props.navigation.goBack()}

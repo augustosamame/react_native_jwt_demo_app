@@ -6,13 +6,13 @@ export default class AuthScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showLogin: false
+      showLogin: true
     };
     this.whichForm = this.whichForm.bind(this);
-    this.authSwitch = this.authSwitch.bind(this);
+    this.formSwitch = this.formSwitch.bind(this);
   }
 
-  authSwitch() {
+  formSwitch() {
     this.setState({
       showLogin: !this.state.showLogin
     });
@@ -21,11 +21,11 @@ export default class AuthScreen extends Component {
   whichForm() {
     if (!this.state.showLogin) {
       return (
-        <Registration newJWT={this.props.setToken} authSwitch={this.authSwitch} />
+        <Registration newJWT={this.props.setToken} formSwitch={this.formSwitch} />
       );
     } else {
       return (
-        <Login newJWT={this.props.setToken} authSwitch={this.authSwitch}/>
+        <Login newJWT={this.props.setToken} formSwitch={this.formSwitch}/>
       );
     }
   }
