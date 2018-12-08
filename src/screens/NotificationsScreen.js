@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, ScrollView, Text, Button, StyleSheet } from 'react-native';
-import Header from '../components/Header';
 import NotificationCardSection from '../components/notificationsScreen/NotificationCardSection';
 import NotificationCardList from '../components/notificationsScreen/NotificationCardList';
 import { Loading } from '../components/common/';
@@ -41,7 +40,6 @@ export default class NotificationsScreen extends React.Component {
       } else {
         return (
         <View style={{ flex: 1 }}>
-        <Header title="Notificaciones" />
         <ScrollView style={{ flex: 1 }}>
           <NotificationCardSection title='Nuevas'>
             <NotificationCardList status='status_unread' notifications={this.state.notifications} />

@@ -4,7 +4,6 @@ import axios from 'axios';
 const deviceStorage = {
 
   getNotificationCount() {
-    console.log(this.state.jwt + '<= state when calling notification with API');
     const headers = {
       Authorization: this.state.jwt
     };

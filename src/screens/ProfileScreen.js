@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as api from '../services/api'
-import Header from '../components/Header';
 import { Loading } from '../components/common/';
 
 export default class ProfileScreen extends React.Component {
@@ -54,7 +53,6 @@ export default class ProfileScreen extends React.Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <Header title="Hola Maestro" />
         <Text style={misDatosTextStyle}>Mis Datos</Text>
         {email ?
           <View style={profileTextContainer}>

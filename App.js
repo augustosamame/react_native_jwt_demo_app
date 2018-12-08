@@ -6,6 +6,7 @@ import { Loading } from './src/components/common/';
 import deviceStorage from './src/services/deviceStorage.js';
 import TabNavigator from './src/TabNavigator';
 import AuthNavigator from './src/AuthNavigator';
+import MainNavigator from './src/MainNavigator';
 import globalStyles from './src/globalStyles';
 import './ReactotronConfig';
 
@@ -28,7 +29,6 @@ export default class App extends React.Component {
   };
 
   getNotificationCount() {
-    console.log(this.state.jwt + '<= state when calling notification with API');
     const headers = {
       Authorization: this.state.jwt
     };
@@ -73,7 +73,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <TabNavigator
+          <MainNavigator
           screenProps={{ jwt: this.state.jwt,
                          unreadMessagesCount: this.state.unreadMessagesCount,
                          deleteToken: this.deleteJWT

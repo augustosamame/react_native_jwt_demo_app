@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
+import { createAppContainer, createBottomTabNavigator, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconBadge from 'react-native-icon-badge';
 import HomeScreen from './screens/HomeScreen';
@@ -9,12 +9,13 @@ import QuotesScreen from './screens/QuotesScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import CartScreen from './screens/CartScreen';
 
-const TabNavigator = createBottomTabNavigator(
+const TabNavigator = createMaterialTopTabNavigator(
   {
   Profile: {
     screen: props => <ProfileScreen {...props.screenProps} />,
     navigationOptions: {
         //tabBarLabel: 'Perfil',
+        title: 'Header Title',
         tabBarIcon: ({ tintColor, focused }) => (
       <Ionicons
         name={focused ? 'ios-person' : 'ios-person'} //TODO change to focused icon
@@ -45,6 +46,7 @@ const TabNavigator = createBottomTabNavigator(
   Quotes: { screen: props => <QuotesScreen {...props.screenProps} />,
               navigationOptions: {
                 //tabBarLabel: 'Perfil',
+                title: 'My Title',
                 tabBarIcon: ({ tintColor, focused }) => (
               <Ionicons
                 name={focused ? 'ios-list-box' : 'ios-list-box'}
@@ -86,6 +88,7 @@ const TabNavigator = createBottomTabNavigator(
   },
   Cart: { screen: props => <CartScreen {...props.screenProps} />,
               navigationOptions: {
+                backgroundColor: '#333',
                 //tabBarLabel: 'Perfil',
                 tabBarIcon: ({ tintColor, focused }) => (
               <Ionicons
@@ -98,14 +101,46 @@ const TabNavigator = createBottomTabNavigator(
   },
 },
   { initialRouteName: 'Quotes',
+    tabBarPosition: 'top',
+    swipeEnabled: false,
+    animationEnabled: true,
+    lazy: true,
     tabBarOptions: {
       showLabel: false,
-      activeTintColor: '#ff6600',
-      activeBackgroundColor: '#333',
-      inactiveTintColor: '#ff6600',
-      inactiveBackgroundColor: '#333',
+      showIcon: true,
+      activeTintColor: 'orange',
+      inactiveTintColor: 'orange',
+      style: {
+        backgroundColor: '#555',
+      },
+      indicatorStyle: {
+        color: '#orange'
+      }
     }
   }
 );
 
-export default createAppContainer(TabNavigator);
+const screenTitles = {
+   Profile: { title: 'Hola Maestro' },
+   Home: { title: 'Selecctiona la Categoría' },
+   Quotes: { title: 'Mi Historial de Cotizaciones' },
+   Notifications: { title: 'Notificaciones' },
+   Cart: { title: 'Mi Pedido' },
+};
+
+
+
+TabNavigator.navigationOptions = ({ navigation }) => {
+
+  const { routeName } = navigation.state.routes[navigation.state.index];
+  // You can do whatever you like here to pick the title based on the route name
+  //const headerTitle = this.screenTitles[routeName].title;
+  const headerTitle = screenTitles[routeName].title
+
+  return {
+    headerTitle,
+  };
+};
+
+//export default createAppContainer(MainNavigator);
+export default TabNavigator;
