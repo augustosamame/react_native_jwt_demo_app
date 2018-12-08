@@ -13,6 +13,7 @@ export default class AuthScreen extends Component {
   }
 
   formSwitch() {
+    console.log('switched!');
     this.setState({
       showLogin: !this.state.showLogin
     });
@@ -43,6 +44,6 @@ const styles = {
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+
   },
 };

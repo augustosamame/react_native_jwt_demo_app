@@ -11,6 +11,8 @@ class Registration extends Component {
       username: '',
       email: '',
       password: '',
+      name: '',
+      phone: '',
       password_confirmation: '',
       error: '',
       loading: false
@@ -22,13 +24,15 @@ class Registration extends Component {
 
   registerUser() {
     console.log(this.props);
-    const { email, username, password, password_confirmation } = this.state;
+    const { email, username, password, password_confirmation, phone, name } = this.state;
 
     this.setState({ error: '', loading: true });
 
     // NOTE Post to HTTPS only in production
     axios.post("http://localhost:3000/signup", {
       user: {
+        phone: phone,
+        name: name,
         username: username,
         email: email,
         password: password,
@@ -54,11 +58,39 @@ class Registration extends Component {
   }
 
   render() {
-    const { email, username, password, password_confirmation, error, loading } = this.state;
+    const { email, phone, name, username, password, password_confirmation, error, loading } = this.state;
     const { form, section, errorTextStyle } = styles;
 
     return (
       <Fragment>
+
+        <View style={section}>
+          <Input
+            placeholder="nombre completo"
+            label="Nombre y Apellido"
+            value={name}
+            onChangeText={name => this.setState({ name })}
+          />
+        </View>
+
+        <View style={section}>
+          <Input
+            placeholder="número celular"
+            label="Celular"
+            value={phone}
+            onChangeText={phone => this.setState({ phone })}
+          />
+        </View>
+
+        <View style={section}>
+          <Input
+            placeholder="usuario@email.com"
+            label="Correo"
+            value={email}
+            onChangeText={email => this.setState({ email })}
+          />
+        </View>
+
         <View style={form}>
           <View style={section}>
             <Input
@@ -66,15 +98,6 @@ class Registration extends Component {
               label="Nombre de Usuario"
               value={username}
               onChangeText={username => this.setState({ username })}
-            />
-          </View>
-
-          <View style={section}>
-            <Input
-              placeholder="usuario@email.com"
-              label="Correo"
-              value={email}
-              onChangeText={email => this.setState({ email })}
             />
           </View>
 
@@ -110,7 +133,7 @@ class Registration extends Component {
             <Loading size={'large'} />
           }
         </View>
-        <TextLink onPress={this.props.authSwitch}>
+        <TextLink onPress={this.props.formSwitch}>
           Ya tiene una cuenta? Inicia Sesión
         </TextLink>
       </Fragment>

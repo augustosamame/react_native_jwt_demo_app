@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import axios from 'axios';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import deviceStorage from '../services/deviceStorage';
 import { Input, TextLink, Loading, Button } from './common';
 import Header from '../components/Header';
@@ -48,37 +49,60 @@ class Login extends Component {
   }
 
   render() {
+
     const { username, password, error, loading } = this.state;
-    const { container, form, section, errorTextStyle } = styles;
+    const { container, form, section, errorTextStyle, iconContainer, inputContainer, titleText } = styles;
 
     return (
-      <Fragment>
-        <Header title="Login" />
+      <View style={container}>
+        <Header title="¡Bienvenido Amigo Maestro!" />
         <View style={form}>
-          <View style={section}>
-            <Input
-              placeholder="nombre de usuario"
-              label="Usuario"
-              value={username}
-              onChangeText={username => this.setState({ username })}
-            />
-          </View>
+          <ImageBackground source={require('./cemento-login.jpg')} style={{ flex: 1, marginBottom: 30 }}>
+          <View style={{marginTop: 120}}>
+            <Text style={titleText}>Iniciar Sesión</Text>
+            <View style={section}>
+              <View style={iconContainer}>
+                <Ionicons
+                  name={'ios-person'}
+                  size={26}
+                  style={{ color: '#fff', alignSelf: 'center' }}
+                />
+              </View>
+              <View style={inputContainer}>
+                <Input
+                  placeholder="Usuario"
+                  value={username}
+                  onChangeText={username => this.setState({ username })}
+                />
+              </View>
+            </View>
 
           <View style={section}>
-            <Input
-              secureTextEntry
-              placeholder="contraseña"
-              label="Contraseña"
-              value={password}
-              onChangeText={password => this.setState({ password })}
-            />
+            <View style={iconContainer}>
+              <Ionicons
+                name={'ios-lock'}
+                size={26}
+                style={{ color: '#fff', alignSelf: 'center' }}
+              />
+            </View>
+            <View style={inputContainer}>
+              <Input
+                secureTextEntry
+                placeholder="Contraseña"
+                value={password}
+                onChangeText={password => this.setState({ password })}
+              />
+            </View>
           </View>
+          </View>
+          </ImageBackground>
 
         </View>
-        <TextLink style={{ marginTop: 10 }} onPress={this.props.authSwitch}>
+
+        <TextLink style={{ }} onPress={this.props.formSwitch}>
           Aún no estas registrado? Regístrate
         </TextLink>
-        <TextLink onPress={this.props.forgotPassword}>
+        <TextLink style={{ }} onPress={this.props.forgotPassword}>
           Olvidaste tu contraseña?
         </TextLink>
         <Text style={errorTextStyle}>
@@ -91,31 +115,51 @@ class Login extends Component {
           </Button>
           :
           <Loading size={'large'} />}
-      </Fragment>
+      </View>
     );
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   form: {
-    width: '100%',
-    borderTopWidth: 1,
-    borderColor: '#ddd',
+    flex: 0.8
   },
   section: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    backgroundColor: '#fff',
-    borderColor: '#ddd',
+    backgroundColor: '#eee',
+    borderRadius: 3,
+    marginTop: 10,
+    height: 40,
+    marginLeft: '10%',
+    marginRight: '10%',
+  },
+  titleText: {
+    color: '#fff',
+    alignSelf: 'center',
+    fontSize: 20,
+    marginBottom: 10
   },
   errorTextStyle: {
     alignSelf: 'center',
     fontSize: 18,
     color: 'red'
   },
-};
+  iconContainer: {
+    flex: 0.1,
+    height: 40,
+    borderRadius: 3,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'orange',
+  },
+  inputContainer: {
+    flex: 0.8,
+    alignSelf: 'flex-start',
+    marginLeft: -70,
+  }
+});
 
 export { Login };
