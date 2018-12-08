@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { createAppContainer, createBottomTabNavigator, createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconBadge from 'react-native-icon-badge';
 import HomeScreen from './screens/HomeScreen';
@@ -100,7 +100,7 @@ const TabNavigator = createMaterialTopTabNavigator(
       }
   },
 },
-  { initialRouteName: 'Quotes',
+  { initialRouteName: 'Home',
     tabBarPosition: 'top',
     swipeEnabled: false,
     animationEnabled: true,
@@ -122,21 +122,16 @@ const TabNavigator = createMaterialTopTabNavigator(
 
 const screenTitles = {
    Profile: { title: 'Hola Maestro' },
-   Home: { title: 'Selecctiona la Categoría' },
+   Home: { title: 'Selecciona la Categoría' },
    Quotes: { title: 'Mi Historial de Cotizaciones' },
    Notifications: { title: 'Notificaciones' },
    Cart: { title: 'Mi Pedido' },
 };
 
 
-
 TabNavigator.navigationOptions = ({ navigation }) => {
-
   const { routeName } = navigation.state.routes[navigation.state.index];
-  // You can do whatever you like here to pick the title based on the route name
-  //const headerTitle = this.screenTitles[routeName].title;
-  const headerTitle = screenTitles[routeName].title
-
+  const headerTitle = screenTitles[routeName].title;
   return {
     headerTitle,
   };
