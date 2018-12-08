@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import axios from 'axios';
 import { Input, TextLink, Loading, Button } from './common';
 import deviceStorage from '../services/deviceStorage';
+import Header from '../components/Header';
 
 class Registration extends Component {
   constructor(props) {
@@ -59,11 +60,12 @@ class Registration extends Component {
 
   render() {
     const { email, phone, name, username, password, password_confirmation, error, loading } = this.state;
-    const { form, section, errorTextStyle } = styles;
+    const { form, contents, section, errorTextStyle, container } = styles;
 
     return (
-      <Fragment>
-
+      <View style={container}>
+        <Header title="Hola Maestro" />
+      <View style={contents}>
         <View style={section}>
           <Input
             placeholder="nombre completo"
@@ -91,57 +93,65 @@ class Registration extends Component {
           />
         </View>
 
-        <View style={form}>
-          <View style={section}>
-            <Input
-              placeholder="Usuario"
-              label="Nombre de Usuario"
-              value={username}
-              onChangeText={username => this.setState({ username })}
-            />
+          <View style={form}>
+            <View style={section}>
+              <Input
+                placeholder="Usuario"
+                label="Nombre de Usuario"
+                value={username}
+                onChangeText={username => this.setState({ username })}
+              />
+            </View>
+
+            <View style={section}>
+              <Input
+                secureTextEntry
+                placeholder="contraseña"
+                label="Contraseña"
+                value={password}
+                onChangeText={password => this.setState({ password })}
+              />
+            </View>
+
+            <View style={section}>
+              <Input
+                secureTextEntry
+                placeholder="confirmar contraseña"
+                label="Confirmar Contraseña"
+                value={password_confirmation}
+                onChangeText={password_confirmation => this.setState({ password_confirmation })}
+              />
+            </View>
+
+            <Text style={errorTextStyle}>
+              {error}
+            </Text>
+
+            {!loading ?
+              <Button onPress={this.registerUser}>
+                Crear Registro
+              </Button>
+              :
+              <Loading size={'large'} />
+            }
           </View>
-
-          <View style={section}>
-            <Input
-              secureTextEntry
-              placeholder="contraseña"
-              label="Contraseña"
-              value={password}
-              onChangeText={password => this.setState({ password })}
-            />
-          </View>
-
-          <View style={section}>
-            <Input
-              secureTextEntry
-              placeholder="confirmar contraseña"
-              label="Confirmar Contraseña"
-              value={password_confirmation}
-              onChangeText={password_confirmation => this.setState({ password_confirmation })}
-            />
-          </View>
-
-          <Text style={errorTextStyle}>
-            {error}
-          </Text>
-
-          {!loading ?
-            <Button onPress={this.registerUser}>
-              Crear Registro
-            </Button>
-            :
-            <Loading size={'large'} />
-          }
+          <TextLink onPress={this.props.formSwitch}>
+            Ya tiene una cuenta? Inicia Sesión
+          </TextLink>
         </View>
-        <TextLink onPress={this.props.formSwitch}>
-          Ya tiene una cuenta? Inicia Sesión
-        </TextLink>
-      </Fragment>
+      </View>
     );
   }
 }
 
 const styles = {
+  container: {
+    flex: 1,
+  },
+  contents: {
+    marginTop: 100,
+    flex: 0.8,
+  },
   form: {
     width: '100%',
     borderTopWidth: 1,
