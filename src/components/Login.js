@@ -36,7 +36,6 @@ class Login extends Component {
       this.props.newJWT(response.headers.authorization);
     })
     .catch((error) => {
-      console.log(error);
       this.onLoginFail();
     });
   }

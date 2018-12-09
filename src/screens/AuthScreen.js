@@ -13,7 +13,6 @@ export default class AuthScreen extends Component {
   }
 
   formSwitch() {
-    console.log('switched!');
     this.setState({
       showLogin: !this.state.showLogin
     });

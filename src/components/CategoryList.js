@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View, TouchableHighlight } from 'react-native';
 import * as api from '../services/api'
 import CategoryDetail from './CategoryDetail';
 
@@ -13,15 +13,15 @@ export default class CategoryList extends React.Component {
   }
 
   renderCategories() {
-    return this.state.categories.map (category => <CategoryDetail
-                                                    key={category.id}
-                                                    category={category}
-                                                  />
-                                      );
+    return this.state.categories.map (category =>
+      <CategoryDetail
+        key={category.id}
+        category={category}
+      />
+    );
   }
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.container}>
         {this.renderCategories()}

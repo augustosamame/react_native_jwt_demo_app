@@ -24,7 +24,6 @@ class Registration extends Component {
   }
 
   registerUser() {
-    console.log(this.props);
     const { email, username, password, password_confirmation, phone, name } = this.state;
 
     this.setState({ error: '', loading: true });
@@ -46,7 +45,6 @@ class Registration extends Component {
       this.props.newJWT(response.headers.authorization);
     })
     .catch((error) => {
-      console.log(error);
       this.onRegistrationFail();
     });
   }

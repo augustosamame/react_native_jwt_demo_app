@@ -3,19 +3,17 @@ import { Text } from 'react-native';
 import { createMaterialTopTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconBadge from 'react-native-icon-badge';
-import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import QuotesScreen from './screens/QuotesScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import CartScreen from './screens/CartScreen';
+import HomeStackNavigator from './HomeStackNavigator'
 
 const TabNavigator = createMaterialTopTabNavigator(
   {
   Profile: {
     screen: props => <ProfileScreen {...props.screenProps} />,
     navigationOptions: {
-        //tabBarLabel: 'Perfil',
-        title: 'Header Title',
         tabBarIcon: ({ tintColor, focused }) => (
       <Ionicons
         name={focused ? 'ios-person' : 'ios-person'} //TODO change to focused icon
@@ -25,28 +23,9 @@ const TabNavigator = createMaterialTopTabNavigator(
     ),
   }
   },
-  Home: {
-    screen: props => <HomeScreen {...props.screenProps} />,
-    navigationOptions: {
-            tabBarIcon: ({ tintColor, focused }) => (
-          <Ionicons
-            name={focused ? 'ios-home' : 'ios-home'}
-            size={26}
-            style={{ color: tintColor }}
-          />
-        ),
-          //  tabBarIcon: () => {
-          //                <Image
-          //                style={{ width: 50, height: 50 }}
-          //                source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
-          //                />
-        //},
-        }
-  },
+  Home: HomeStackNavigator,
   Quotes: { screen: props => <QuotesScreen {...props.screenProps} />,
               navigationOptions: {
-                //tabBarLabel: 'Perfil',
-                title: 'My Title',
                 tabBarIcon: ({ tintColor, focused }) => (
               <Ionicons
                 name={focused ? 'ios-list-box' : 'ios-list-box'}
@@ -58,9 +37,7 @@ const TabNavigator = createMaterialTopTabNavigator(
   },
   Notifications: { screen: props => <NotificationsScreen {...props.screenProps} />,
               navigationOptions: ({ screenProps }) => ({
-                //tabBarLabel: 'Perfil',
                 tabBarIcon: ({ tintColor, focused }) => (
-
                   <IconBadge
                     MainElement={
                       <Ionicons
@@ -89,7 +66,6 @@ const TabNavigator = createMaterialTopTabNavigator(
   Cart: { screen: props => <CartScreen {...props.screenProps} />,
               navigationOptions: {
                 backgroundColor: '#333',
-                //tabBarLabel: 'Perfil',
                 tabBarIcon: ({ tintColor, focused }) => (
               <Ionicons
                 name={focused ? 'ios-cart' : 'ios-cart'}
@@ -128,7 +104,6 @@ const screenTitles = {
    Cart: { title: 'Mi Pedido' },
 };
 
-
 TabNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const headerTitle = screenTitles[routeName].title;
@@ -137,5 +112,4 @@ TabNavigator.navigationOptions = ({ navigation }) => {
   };
 };
 
-//export default createAppContainer(MainNavigator);
 export default TabNavigator;

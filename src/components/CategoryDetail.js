@@ -1,17 +1,21 @@
 import React from 'react';
-import { Text, StyleSheet, View, ImageBackground } from 'react-native';
+import { Text, StyleSheet, View, ImageBackground, TouchableWithoutFeedback } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-export default class CategoryDetail extends React.Component {
+class CategoryDetail extends React.Component {
 
   render() {
-    let pic = { uri: this.props.category.attributes.image.large.url };
-    console.log({pic});
+    const pic = { uri: this.props.category.attributes.image.large.url };
     return (
-      <View style={ styles.viewContainer }>
+      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Product', { productCategory: this.props.category.attributes.name })}>
+      <View style={styles.viewContainer}>
         <ImageBackground source={pic} style={styles.imgContainer}>
-          <Text style={styles.titleText}>{this.props.category.attributes.name}</Text>
+          <Text style={styles.titleText}>
+            {this.props.category.attributes.name}
+          </Text>
         </ImageBackground>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -19,14 +23,14 @@ export default class CategoryDetail extends React.Component {
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 0.25,
+    backgroundColor: 'transparent',
   },
  imgContainer: {
-    width: null,
-    height: null,
     resizeMode: 'cover',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    backgroundColor: 'transparent',
   },
   titleText: {
     color: "#fff",
@@ -35,3 +39,5 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   }
 });
+
+export default withNavigation(CategoryDetail);
