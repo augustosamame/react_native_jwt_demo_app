@@ -11,7 +11,7 @@ export default class ProductCardList extends React.Component {
 
   renderProducts() {
     return this.props.products.map(product => {
-              return <ProductDetail key={product.id} product={product}>
+              return <ProductDetail key={product.id} product={product} style={{ marginBottom: 10 }}>
                         {product.attributes.name}
                       </ProductDetail>
     });
@@ -30,18 +30,10 @@ const styles = StyleSheet.create({
  container: {
     alignSelf: 'stretch',
     marginTop: 20,
-    backgroundColor: '#ddd',
+    backgroundColor: '#fff',
     justifyContent: 'center',
     elevation: 2,
     position: 'relative',
-  },
-  headerText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    fontSize: 20,
-    fontFamily:
-      Platform.OS === 'ios' ? 'AvenirNext-Regular' : 'Roboto',
   },
 
 });

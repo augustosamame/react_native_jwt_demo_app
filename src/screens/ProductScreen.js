@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, Text, Fragment, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { SearchBar } from 'react-native-elements'
 import * as api from '../services/api'
 import ProductCardList from '../components/productsScreen/ProductCardList'
 import { Input, Loading, Button } from '../components/common';
@@ -34,6 +35,14 @@ class ProductScreen extends React.Component {
     });
   }
 
+  incrementalSearchProducts() {
+    console.log('incremental Search')
+  }
+
+  clearSearchProducts() {
+    console.log('cleared Search')
+  }
+
   render() {
     const { container,
             searchProductContainer,
@@ -46,7 +55,13 @@ class ProductScreen extends React.Component {
     return (
       <View style={container}>
         <View style={searchProductContainer}>
-          <Text>Here goes Search</Text>
+        <SearchBar
+          round
+          onChangeText={this.incrementalSearchProducts}
+          onClear={this.clearSearchProducts}
+          placeholder='Busca tu producto'
+          inputContainerStyle={{ backgroundColor: '#fff' }}
+        />
         </View>
         <ScrollView style={productListContainer}>
           <ProductCardList products={this.state.products} />
@@ -78,7 +93,8 @@ const styles = StyleSheet.create({
   },
   searchProductContainer: {
     flex: 0.1,
-    alignSelf: 'center',
+
+    backgroundColor: 'red',
   },
   productListContainer: {
     flex: 0.7,
