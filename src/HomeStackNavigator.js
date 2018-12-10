@@ -10,6 +10,9 @@ import ProductScreen from './screens/ProductScreen';
     },
     Product: {
       screen: props => <ProductScreen {...props.screenProps} />,
+      navigationOptions: {
+        tabBarVisible: false,
+      }
     },
 },
   {

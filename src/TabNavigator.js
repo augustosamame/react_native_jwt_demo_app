@@ -107,8 +107,15 @@ const screenTitles = {
 TabNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const headerTitle = screenTitles[routeName].title;
+
+  let tabBarVisible = false
+
+  if (headerTitle === 'Selecciona la Categoría') {
+    tabBarPosition = false;
+  }
   return {
     headerTitle,
+    tabBarVisible
   };
 };
 

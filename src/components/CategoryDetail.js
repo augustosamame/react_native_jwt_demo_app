@@ -7,7 +7,7 @@ class CategoryDetail extends React.Component {
   render() {
     const pic = { uri: this.props.category.attributes.image.large.url };
     return (
-      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Product', { productCategory: this.props.category.attributes.name })}>
+      <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('Product', { productCategory: this.props.category.id })}>
       <View style={styles.viewContainer}>
         <ImageBackground source={pic} style={styles.imgContainer}>
           <Text style={styles.titleText}>
