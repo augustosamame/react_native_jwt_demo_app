@@ -11,9 +11,14 @@ export default class ProductCardList extends React.Component {
 
   renderProducts() {
     return this.props.products.map(product => {
-              return <ProductDetail key={product.id} product={product} style={{ marginBottom: 10 }}>
-                        {product.attributes.name}
-                      </ProductDetail>
+              return <ProductDetail
+                        key={product.id}
+                        product={product}
+                        style={{ marginBottom: 10 }}
+                        updateOrderedProducts={this.props.updateOrderedProducts}
+                     >
+                      {product.attributes.name}
+                     </ProductDetail>
     });
   }
 

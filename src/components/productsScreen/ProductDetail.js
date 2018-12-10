@@ -17,6 +17,12 @@ export default class ProductDetail extends React.Component {
     };
   }
 
+  changedInput = (text) => {
+                            this.setState(text)
+                            this.props.updateOrderedProducts([this.props.product.id, text.text])
+                           }
+
+
   render() {
     const pic = { uri: this.props.product.attributes.image.thumb.url }
     return (
@@ -33,8 +39,11 @@ export default class ProductDetail extends React.Component {
           <View style={styles.spinnerSection}>
             <TextInput
                 style={styles.input}
+                selectTextOnFocus={true}
                 //style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={(text) => this.setState({ text })}
+                //onChangeText={(text) => this.setState({ text })}
+                //onEndEditing = {(text) => this.props.updateOrderedProducts([this.props.product.id, this.state.text])}
+                onChangeText={(text) => this.changedInput({ text })}
                 value={this.state.text}
                 underlineColorAndroid="transparent"
             />

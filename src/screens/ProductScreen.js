@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SearchBar } from 'react-native-elements'
 import * as api from '../services/api'
 import ProductCardList from '../components/productsScreen/ProductCardList'
-import { Input, Loading, Button } from '../components/common';
+import { Loading, Button } from '../components/common';
 
 class ProductScreen extends React.Component {
   constructor(props) {
@@ -13,9 +13,11 @@ class ProductScreen extends React.Component {
     this.state = {
       loading: true,
       products: [],
+      ordered_products: [],
       error: '',
       productCategory: this.props.navigation.getParam('productCategory', 'Fierros'),
     };
+    this.updateOrderedProducts = this.updateOrderedProducts.bind(this)
   }
 
   componentDidMount() {
@@ -26,7 +28,6 @@ class ProductScreen extends React.Component {
         products: response.data.data,
         loading: false
       });
-      console.log(this.state.products);
     }).catch((error) => {
       this.setState({
         error: 'Error retrieving data',
@@ -35,12 +36,46 @@ class ProductScreen extends React.Component {
     });
   }
 
+  updateOrderedProducts(addedProducts) {
+    this.setState({
+      ordered_products: [...this.state.ordered_products, addedProducts]
+    });
+  }
+
   incrementalSearchProducts() {
-    console.log('incremental Search')
+    console.log('incremental Search');
   }
 
   clearSearchProducts() {
-    console.log('cleared Search')
+    console.log('cleared Search');
+  }
+
+  updateCart() {
+    //we get only last sent value
+    const dirtyArray = this.state.ordered_products;
+    const cleanArray = Array.from(dirtyArray.reduce((acc, item) => {
+      acc.set(item[0], item);
+      return acc;
+    }, new Map()).values());
+
+
+    api.post(
+      '/carts',
+      cleanArray
+    ).then((response) => {
+      this.setState({
+        ordered_products: [],
+        loading: false
+      });
+      console.log(response.data.data);
+      this.props.navigation.navigate('Modal');
+    }).catch((error) => {
+      this.setState({
+        error: 'Error sending data',
+        loading: false
+      });
+      console.log(error);
+    });
   }
 
   render() {
@@ -50,40 +85,48 @@ class ProductScreen extends React.Component {
             optionButtonsContainer,
             firstButton,
             secondButton,
-            backButton} = styles;
-
-    return (
-      <View style={container}>
-        <View style={searchProductContainer}>
-        <SearchBar
-          round
-          onChangeText={this.incrementalSearchProducts}
-          onClear={this.clearSearchProducts}
-          placeholder='Busca tu producto'
-          inputContainerStyle={{ backgroundColor: '#fff' }}
-        />
-        </View>
-        <ScrollView style={productListContainer}>
-          <ProductCardList products={this.state.products} />
-        </ScrollView>
-        <View style={optionButtonsContainer}>
-          <View style={firstButton}>
-            <Button style={backButton} onPress={() => { this.props.navigation.goBack(); }} >
-            <Ionicons
-              name={'ios-arrow-back'}
-              size={26}
-              style={{ color: '#fff', alignSelf: 'center' }}
+            backButton } = styles;
+    if (this.state.loading) {
+      return (
+        <Loading size={'large'} />
+       );
+    } else {
+      return (
+        <View style={container}>
+          <View style={searchProductContainer}>
+          <SearchBar
+            round
+            onChangeText={this.incrementalSearchProducts}
+            onClear={this.clearSearchProducts}
+            placeholder='Busca tu producto'
+            inputContainerStyle={{ backgroundColor: '#fff' }}
+          />
+          </View>
+          <ScrollView style={productListContainer}>
+            <ProductCardList
+              updateOrderedProducts={this.updateOrderedProducts}
+              products={this.state.products}
             />
-            </Button>
-        </View>
-          <View style={secondButton}>
-            <Button onPress={() => {this.props.navigation.navigate('Home'); }} >
-              Agregar
-            </Button>
+          </ScrollView>
+          <View style={optionButtonsContainer}>
+            <View style={firstButton}>
+              <Button style={backButton} onPress={() => { this.props.navigation.goBack(); }} >
+              <Ionicons
+                name={'ios-arrow-back'}
+                size={26}
+                style={{ color: '#fff', alignSelf: 'center' }}
+              />
+              </Button>
+          </View>
+            <View style={secondButton}>
+              <Button onPress={() => this.updateCart()} >
+                Agregar
+              </Button>
+            </View>
           </View>
         </View>
-      </View>
-    );
+      );
+    }
   }
 }
 
