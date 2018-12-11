@@ -38,8 +38,8 @@ export default class CartItemCardList extends React.Component {
         {this.renderCartItems()}
         <View style={styles.cartOptionsContainer}>
           <Text style={styles.cartOptionsTitle}>Datos de Entrega</Text>
-          <View style={styles.dateInput}>
-            <Ionicons style={styles.dateIcon} name="ios-calendar" size={40} color="orange"/>
+          <View style={styles.optionInput}>
+            <Ionicons style={styles.dateIcon} name="ios-calendar" size={40} color="white"/>
             <TextInput
                 style={styles.input}
                 selectTextOnFocus={true}
@@ -49,8 +49,8 @@ export default class CartItemCardList extends React.Component {
                 underlineColorAndroid="transparent"
             />
           </View>
-          <View style={styles.dateInput}>
-            <Ionicons style={styles.intervalIcon} name="ios-time" size={40} color="orange"/>
+          <View style={styles.optionInput}>
+            <Ionicons style={styles.intervalIcon} name="ios-time" size={40} color="white"/>
             <TextInput
                 style={styles.input}
                 selectTextOnFocus={true}
@@ -86,30 +86,28 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
   },
-  dateInput: {
+  optionInput: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     width: '70%',
-    backgroundColor: '#fff',
+    backgroundColor: 'orange',
     height: 40,
-    paddingLeft: 20,
-    borderWidth: 2,
-    borderColor: 'orange'
+    marginBottom: 10
   },
   dateIcon: {
-      padding: 0,
+      paddingLeft: 5,
+      paddingRight: 5,
   },
   intervalIcon: {
-      padding: 0,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   input: {
       flex: 1,
-      paddingTop: 10,
-      paddingRight: 10,
-      paddingBottom: 10,
-      paddingLeft: 0,
-      backgroundColor: '#fff',
+      padding: 10,
+      paddingLeft: 30,
+      backgroundColor: '#ccc',
       color: '#424242',
       fontSize: 20,
   },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, NavigationEvents } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as api from '../services/api'
 import { Loading, Button } from '../components/common';
@@ -83,6 +83,9 @@ class CartScreen extends React.Component {
     } else {
       return (
         <View style={container}>
+          <NavigationEvents
+            onWillFocus={() => this.getCartItems()}
+          />
           <View style={totalTextContainer}>
           <Text style={totalTextStyle}>
             {totalText}
@@ -119,7 +122,7 @@ class CartScreen extends React.Component {
           </View>
             <View style={secondButton}>
               <Button onPress={() => this.props.navigation.navigate('chooseObra')} >
-                Agregar
+                Siguiente
               </Button>
             </View>
           </View>
