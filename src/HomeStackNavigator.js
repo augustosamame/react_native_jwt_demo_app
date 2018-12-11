@@ -3,7 +3,6 @@ import { createStackNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
-import ModalScreen from './screens/ModalScreen';
 
   const HomeStackNavigator = createStackNavigator({
     Home: {
@@ -15,9 +14,6 @@ import ModalScreen from './screens/ModalScreen';
         tabBarVisible: false,
       }
     },
-    Modal: {
-      screen: ModalScreen
-    }
 },
   {
     headerMode: 'none',

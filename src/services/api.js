@@ -39,3 +39,20 @@ export const post = (endpoint, payload = {}, headers = {}) => new Promise((resol
      });
  });
 });
+
+export const destroy = (endpoint, payload = {}, headers = {}) => new Promise((resolve, reject) => {
+    AsyncStorage.getItem('id_token', (err, jwt) => {
+      headers.Authorization = jwt
+      axios({
+        method: 'DELETE',
+        url: apiConfig.development.url + endpoint,
+        headers: headers,
+      })
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+     });
+ });
+});

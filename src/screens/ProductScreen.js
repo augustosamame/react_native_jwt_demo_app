@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, Fragment, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, Fragment, StyleSheet, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SearchBar } from 'react-native-elements'
@@ -67,8 +67,19 @@ class ProductScreen extends React.Component {
         ordered_products: [],
         loading: false
       });
-      console.log(response.data.data);
-      this.props.navigation.navigate('Modal');
+      //this.props.navigation.navigate('Modal');
+      Alert.alert(
+        'Tu producto ha sido añadido con éxito', '',
+        [
+          { text: 'Aceptar',
+            onPress: () => {
+                            this.props.navigation.navigate('Home')
+                            this.props.getBubblesCount()
+                           }
+         },
+        ],
+        { cancelable: false }
+      );
     }).catch((error) => {
       this.setState({
         error: 'Error sending data',

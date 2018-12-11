@@ -16,11 +16,14 @@ export default class App extends React.Component {
     super();
     this.state = {
       jwt: '',
-      loading: true
+      loading: true,
+      unreadMessagesCount: 0,
+      cartProductsCount: 0,
     };
     this.newJWT = this.newJWT.bind(this);
     this.deleteJWT = deviceStorage.deleteJWT.bind(this);
     this.loadJWT = deviceStorage.loadJWT.bind(this);
+    this.getBubblesCount = this.getBubblesCount.bind(this);
     this.loadJWT();
   }
 
@@ -28,7 +31,7 @@ export default class App extends React.Component {
     isLoadingComplete: false,
   };
 
-  getNotificationCount() {
+  getBubblesCount() {
     const headers = {
       Authorization: this.state.jwt
     };
@@ -39,6 +42,7 @@ export default class App extends React.Component {
     }).then((response) => {
       this.setState({
         unreadMessagesCount: response.data.data.attributes.unread_notifications_count,
+        cartProductsCount: response.data.data.attributes.cart_products_count,
         loading: false
       });
     }).catch((error) => {
@@ -53,7 +57,7 @@ export default class App extends React.Component {
     this.setState({
       jwt: jwt
     });
-    this.getNotificationCount();
+    this.getBubblesCount();
   }
 
   render() {
@@ -76,7 +80,9 @@ export default class App extends React.Component {
           <MainNavigator
           screenProps={{ jwt: this.state.jwt,
                          unreadMessagesCount: this.state.unreadMessagesCount,
-                         deleteToken: this.deleteJWT
+                         cartProductsCount: this.state.cartProductsCount,
+                         deleteToken: this.deleteJWT,
+                         getBubblesCount: this.getBubblesCount
                       }}
           />
         </View>

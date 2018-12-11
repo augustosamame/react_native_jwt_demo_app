@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const deviceStorage = {
 
-  getNotificationCount() {
+  getBubblesCount() {
     const headers = {
       Authorization: this.state.jwt
     };
@@ -15,6 +15,7 @@ const deviceStorage = {
     .then((response) => {
       this.setState({
         unreadMessagesCount: response.data.data.attributes.unread_notifications_count,
+        cartProductsCount: response.data.data.attributes.cart_products_count,
         loading: false
       });
     }).catch((error) => {
@@ -41,7 +42,7 @@ const deviceStorage = {
           jwt: value,
           loading: false
         });
-        this.getNotificationCount();
+        this.getBubblesCount();
       } else {
         this.setState({
           loading: false

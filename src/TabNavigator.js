@@ -64,19 +64,33 @@ const TabNavigator = createMaterialTopTabNavigator(
 
   },
   Cart: { screen: props => <CartScreen {...props.screenProps} />,
-              navigationOptions: {
-                backgroundColor: '#333',
-                tabBarIcon: ({ tintColor, focused }) => (
-              <Ionicons
-                name={focused ? 'ios-cart' : 'ios-cart'}
-                size={26}
-                style={{ color: tintColor }}
-              />
-            ),
-      }
+            navigationOptions: ({ screenProps }) => ({
+              tabBarIcon: ({ tintColor, focused }) => (
+                <IconBadge
+                  MainElement={
+                    <Ionicons
+                      name={focused ? 'ios-cart' : 'ios-cart'}
+                      size={26}
+                      style={{ color: tintColor }}
+                    />
+                  }
+                  BadgeElement={
+                    <Text style={{ color: '#FFFFFF' }}>{screenProps.cartProductsCount}</Text>
+                  }
+                  IconBadgeStyle={{ width: 15,
+                    height: 15,
+                    position: 'absolute',
+                    top: 1,
+                    left: -6,
+                    marginLeft: 15,
+                    backgroundColor: 'red' }}
+                  Hidden={screenProps.cartProductsCount === 0}
+                />
+          )
+          })
   },
 },
-  { initialRouteName: 'Home',
+  { initialRouteName: 'Cart',
     tabBarPosition: 'top',
     swipeEnabled: false,
     animationEnabled: true,
