@@ -8,6 +8,7 @@ import QuotesScreen from './screens/QuotesScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import CartScreen from './screens/CartScreen';
 import HomeStackNavigator from './HomeStackNavigator'
+import CartStackNavigator from './CartStackNavigator'
 
 const TabNavigator = createMaterialTopTabNavigator(
   {
@@ -63,32 +64,7 @@ const TabNavigator = createMaterialTopTabNavigator(
           })
 
   },
-  Cart: { screen: props => <CartScreen {...props.screenProps} />,
-            navigationOptions: ({ screenProps }) => ({
-              tabBarIcon: ({ tintColor, focused }) => (
-                <IconBadge
-                  MainElement={
-                    <Ionicons
-                      name={focused ? 'ios-cart' : 'ios-cart'}
-                      size={26}
-                      style={{ color: tintColor }}
-                    />
-                  }
-                  BadgeElement={
-                    <Text style={{ color: '#FFFFFF' }}>{screenProps.cartProductsCount}</Text>
-                  }
-                  IconBadgeStyle={{ width: 15,
-                    height: 15,
-                    position: 'absolute',
-                    top: 1,
-                    left: -6,
-                    marginLeft: 15,
-                    backgroundColor: 'red' }}
-                  Hidden={screenProps.cartProductsCount === 0}
-                />
-          )
-          })
-  },
+  Cart: CartStackNavigator,
 },
   { initialRouteName: 'Cart',
     tabBarPosition: 'top',

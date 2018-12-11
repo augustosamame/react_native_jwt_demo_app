@@ -39,6 +39,7 @@ export default class CartItemDetail extends React.Component {
             checkedColor='black'
             uncheckedColor='black'
             checked={this.state.checked}
+            onPress={() => this.changedInput()}
           />
         </View>
       </View>

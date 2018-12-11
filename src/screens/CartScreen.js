@@ -36,12 +36,13 @@ class CartScreen extends React.Component {
     //});
 
     api.destroy(
-      '/cart/' + cartItem
+      '/carts/' + cartItem
     ).then((response) => {
       this.setState({
         cartItems: response.data.data,
         loading: false
       });
+      this.props.getBubblesCount();
     }).catch((error) => {
       this.setState({
         error: 'Error retrieving data',
@@ -121,7 +122,7 @@ class CartScreen extends React.Component {
               </Button>
           </View>
             <View style={secondButton}>
-              <Button onPress={() => this.props.navigation.navigate('chooseObra')} >
+              <Button onPress={() => this.props.navigation.navigate('ChooseObra')} >
                 Siguiente
               </Button>
             </View>
