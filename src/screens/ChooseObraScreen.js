@@ -41,6 +41,9 @@ class ChooseObraScreen extends React.Component {
         obras: myarray,
         loading: false,
       });
+      this.setState({
+        chosen_obra: this.state.obras[0].value
+      })
       //this.onPress();
       }).catch((error) => {
       this.setState({

@@ -14,13 +14,8 @@ export default class App extends Component {
     onPress = data => this.props.choseRadioButton(data)
 
     render() {
-        let selectedButton = this.props.obras.find(e => e.selected === true);
-        selectedButton = selectedButton ? selectedButton.value : this.props.obras[0].value
         return (
             <View style={styles.container}>
-                <Text style={styles.valueText}>
-                    Value = {selectedButton}
-                </Text>
                 <RadioGroup
                   radioButtons={this.props.obras}
                   onPress={this.onPress}

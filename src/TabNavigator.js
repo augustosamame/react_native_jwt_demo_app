@@ -66,7 +66,7 @@ const TabNavigator = createMaterialTopTabNavigator(
   },
   Cart: CartStackNavigator,
 },
-  { initialRouteName: 'Cart',
+  { initialRouteName: 'Home',
     tabBarPosition: 'top',
     swipeEnabled: false,
     animationEnabled: true,
