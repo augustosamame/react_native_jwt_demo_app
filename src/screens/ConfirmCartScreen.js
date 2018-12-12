@@ -1,9 +1,17 @@
 import React from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 import { Loading, Button } from '../components/common';
 
 class ConfirmCartScreen extends React.Component {
+
+  resetCart = () => {
+    
+    this.props.navigation.dispatch(StackActions.popToTop());
+    this.props.navigation.navigate('Home');
+  }
+
+
   render() {
     const pic = { uri: 'https://s3.amazonaws.com/devtech-ferretero-dev/techo.jpg' };
     return (
@@ -12,7 +20,7 @@ class ConfirmCartScreen extends React.Component {
           <Text style={styles.confirmText}>
             ¡Tu solicitud de cotización ha sido enviada!
           </Text>
-          <Button onPress={() => this.props.navigation.navigate('Home')}>
+          <Button onPress={this.resetCart}>
             ¡Entendido!
           </Button>
         </ImageBackground>

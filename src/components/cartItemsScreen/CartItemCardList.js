@@ -13,8 +13,6 @@ export default class CartItemCardList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: '12/12/2018',
-      interval: '8:00 - 10:00am',
       error: '',
     };
   }
@@ -44,8 +42,8 @@ export default class CartItemCardList extends React.Component {
                 style={styles.input}
                 selectTextOnFocus={true}
                 //style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={(date) => this.setState({ date })}
-                value={this.state.date}
+                onChangeText={(text) => this.props.handleDateChange(text)}
+                value={this.props.entregaDate}
                 underlineColorAndroid="transparent"
             />
           </View>
@@ -55,8 +53,8 @@ export default class CartItemCardList extends React.Component {
                 style={styles.input}
                 selectTextOnFocus={true}
                 //style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={(interval) => this.setState({ interval })}
-                value={this.state.interval}
+                onChangeText={(text) => this.props.handleIntervalChange(text)}
+                value={this.props.entregaInterval}
                 underlineColorAndroid="transparent"
             />
           </View>

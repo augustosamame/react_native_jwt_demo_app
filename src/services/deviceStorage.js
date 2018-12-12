@@ -25,6 +25,21 @@ const deviceStorage = {
       });
     });
   },
+  getCartItems() {
+    api.get(
+      '/carts'
+    ).then((response) => {
+      this.setState({
+        cartItems: response.data.data,
+        loading: false
+      });
+    }).catch((error) => {
+      this.setState({
+        error: 'Error retrieving data',
+        loading: false
+      });
+    });
+  },
 
   async saveKey(key, value) {
     try {

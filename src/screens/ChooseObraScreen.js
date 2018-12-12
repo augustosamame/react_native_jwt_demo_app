@@ -2,8 +2,10 @@ import React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements'
 import { withNavigation } from 'react-navigation';
+import RadioGroup from 'react-native-radio-buttons-group';
 import { Loading, Button } from '../components/common';
 import ObraDetail from '../components/cartItemsScreen/ObraDetail'
+import RadioButtons from '../components/common/RadioButtons'
 import * as api from '../services/api'
 
 class ChooseObraScreen extends React.Component {
@@ -11,22 +13,36 @@ class ChooseObraScreen extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      obras: [],
       chosen_obra: '',
       error: '',
+      obras: [],
     };
+    this.choseRadioButton = this.choseRadioButton.bind(this)
   }
 
   componentDidMount() {
     api.get(
       '/obras'
     ).then((response) => {
+        const myarray = response.data.data.map((eachObra) => {
+          return ({
+            label: eachObra.attributes.name,
+            value: eachObra.id,
+            selected: false,
+            disabled: false,
+            layout: 'row',
+            color: '#444',
+            size: 24
+          }
+          );
+        }
+      );
       this.setState({
-        obras: response.data.data,
-        chosen_obra: response.data.data.length === 1 ? '1' : '',
-        loading: false
+        obras: myarray,
+        loading: false,
       });
-    }).catch((error) => {
+      //this.onPress();
+      }).catch((error) => {
       this.setState({
         error: 'Error retrieving data',
         loading: false
@@ -34,31 +50,55 @@ class ChooseObraScreen extends React.Component {
     });
   }
 
+  choseRadioButton(myobras) {
+    this.setState(
+      { obras: myobras,
+        chosen_obra: myobras.find(e => e.selected === true).value
+      }
+    );
+  }
+
   renderObras() {
-    return this.state.obras.map(obra => {
+    return this.state.new_obras.map(obra => {
               return (
                 <ObraDetail
                   key={obra.id}
                   obra={obra}
                 />
-              )
+              );
     });
   }
 
   render() {
-    return (
-            <View style={styles.container}>
-              <Text style={styles.title}>Confirma Tu Obra</Text>
-              <ScrollView>
-                {this.renderObras()}
-              </ScrollView>
-              <Button
-                style={styles.button}
-                onPress={() => this.props.navigation.navigate('ChooseFerreteria')}>
-                Enviar
-              </Button>
-            </View>
-    );
+    if (this.state.loading) {
+      return (
+        <Loading size={'large'} />
+       );
+    } else {
+      return (
+              <View style={styles.container}>
+                <Text style={styles.title}>Confirma Tu Obra</Text>
+                <ScrollView>
+                  <RadioButtons
+                    obras={this.state.obras}
+                    choseRadioButton={this.choseRadioButton}
+                  />
+                </ScrollView>
+                <Button
+                  style={styles.button}
+                  onPress={() => this.props.navigation.navigate(
+                            'ChooseFerreteria',
+                            { chosenObra: this.state.chosen_obra,
+                              chosenDate: this.props.navigation.getParam('chosenDate', ''),
+                              chosenInterval: this.props.navigation.getParam('chosenInterval', '')
+                             }
+                          )}
+                >
+                  Enviar
+                </Button>
+              </View>
+      );
+    }
   }
 }
 

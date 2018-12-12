@@ -29,7 +29,7 @@ HomeStackNavigator.navigationOptions = {
     tabBarIcon: ({ tintColor, focused }) => (
       <Ionicons
         name={focused ? 'ios-home' : 'ios-home'}
-        size={26}
+        size={30}
         style={{ color: tintColor }}
       />
   ),

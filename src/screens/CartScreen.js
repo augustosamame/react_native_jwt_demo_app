@@ -11,14 +11,19 @@ class CartScreen extends React.Component {
     super(props);
     this.state = {
       loading: true,
-      cartItems: [],
+      entregaDate: '11/12/2018',
+      entregaInterval: '8:00 - 10:00am',
       error: '',
     };
     this.removeActiveCartItem = this.removeActiveCartItem.bind(this)
+    this.handleIntervalChange = this.handleIntervalChange.bind(this)
+    this.handleDateChange = this.handleDateChange.bind(this)
   }
 
   componentDidMount() {
-    this.getCartItems();
+    this.props.getCartItems();
+    this.setState({ loading: false });
+    console.log(this.props.cartItems, '<== CartScreen cartItems')
   }
 
   removeActiveCartItem(cartItem) {
@@ -39,10 +44,10 @@ class CartScreen extends React.Component {
       '/carts/' + cartItem
     ).then((response) => {
       this.setState({
-        cartItems: response.data.data,
         loading: false
       });
       this.props.getBubblesCount();
+      this.props.getCartItems();
     }).catch((error) => {
       this.setState({
         error: 'Error retrieving data',
@@ -51,20 +56,12 @@ class CartScreen extends React.Component {
     });
   }
 
-  getCartItems() {
-    api.get(
-      '/carts'
-    ).then((response) => {
-      this.setState({
-        cartItems: response.data.data,
-        loading: false
-      });
-    }).catch((error) => {
-      this.setState({
-        error: 'Error retrieving data',
-        loading: false
-      });
-    });
+  handleIntervalChange(interval) {
+    this.setState({ entregaInterval: interval })
+  }
+
+  handleDateChange(date) {
+    this.setState({ entregaDate: date })
   }
 
   render() {
@@ -82,10 +79,11 @@ class CartScreen extends React.Component {
         <Loading size={'large'} />
        );
     } else {
+      console.log('FIRED RENDER OF CART SCREEN WITH CART ITEMS =>', this.props.cartItems)
       return (
         <View style={container}>
           <NavigationEvents
-            onWillFocus={() => this.getCartItems()}
+            onWillFocus={() => this.props.getCartItems()}
           />
           <View style={totalTextContainer}>
           <Text style={totalTextStyle}>
@@ -107,8 +105,12 @@ class CartScreen extends React.Component {
           </View>
           <ScrollView style={cartItemListContainer}>
             <CartItemCardList
+              entregaDate={this.state.entregaDate}
+              entregaInterval={this.state.entregaInterval}
               removeActiveCartItem={this.removeActiveCartItem}
-              cartItems={this.state.cartItems}
+              handleIntervalChange={this.handleIntervalChange}
+              handleDateChange={this.handleDateChange}
+              cartItems={this.props.cartItems}
             />
           </ScrollView>
           <View style={optionButtonsContainer}>
@@ -122,7 +124,11 @@ class CartScreen extends React.Component {
               </Button>
           </View>
             <View style={secondButton}>
-              <Button onPress={() => this.props.navigation.navigate('ChooseObra')} >
+              <Button onPress={() => this.props.navigation.navigate(
+                'ChooseObra',
+                { chosenDate: this.state.entregaDate, chosenInterval: this.state.entregaInterval }
+              )}
+              >
                 Siguiente
               </Button>
             </View>

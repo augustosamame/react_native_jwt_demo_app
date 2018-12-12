@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { CheckBox, SearchBar } from 'react-native-elements'
+import { SearchBar } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Loading, Button } from '../components/common';
-import * as api from '../services/api'
+import * as api from '../services/api';
+import FerreteriaCardList from '../components/cartItemsScreen/FerreteriaCardList';
 
 class ChooseFerreteriaScreen extends React.Component {
   constructor(props) {
@@ -12,7 +13,14 @@ class ChooseFerreteriaScreen extends React.Component {
     this.state = {
       ferreterias: [],
       chosen_ferreterias: [],
+      loading: true,
     };
+    this.toggleChoseFerreteria.bind(this);
+    console.log('START SCREEN PARAMS');
+    console.log(this.props.navigation.getParam('chosenObra', ''));
+    console.log(this.props.navigation.getParam('chosenDate', ''));
+    console.log(this.props.navigation.getParam('chosenInterval', ''));
+    console.log('END SCREEN PARAMS');
   }
 
   componentDidMount() {
@@ -23,9 +31,54 @@ class ChooseFerreteriaScreen extends React.Component {
         ferreterias: response.data.data,
         loading: false
       });
+      console.log(this.state);
     }).catch((error) => {
       this.setState({
-        error: 'Error retrieving data',
+        error: `Error retrieving data: ${error}`,
+        loading: false
+      });
+    });
+  }
+
+  toggleChoseFerreteria = (toggledFerreteria, selected) => {
+    console.log('Passed params: ', toggledFerreteria, selected);
+    console.log('state before function: ', this.state.chosen_ferreterias);
+    let array = this.state.chosen_ferreterias;
+    if (selected) {
+      array.push(toggledFerreteria);
+      this.setState({
+        chosen_ferreterias: array
+      });
+    } else {
+        const index = array.indexOf(toggledFerreteria);
+        array.splice(index)
+        console.log('found item to delete in array at pos: ', index);
+      this.setState({
+        chosen_ferreterias: array
+      });
+    }
+    console.log('state after function: ', this.state.chosen_ferreterias);
+  }
+
+  sendCart = () => {
+    api.post(
+      '/checkout',
+      {
+        chosenObra: this.props.navigation.getParam('chosenObra', ''),
+        chosen_ferreterias: this.state.chosen_ferreterias,
+        chosenDate: this.props.navigation.getParam('chosenDate', ''),
+        chosenInterval: this.props.navigation.getParam('chosenInterval', '')
+      }
+    ).then((response) => {
+      this.setState({
+        loading: false
+      });
+      this.props.getBubblesCount();
+      this.props.getCartItems();
+      this.props.navigation.navigate('ConfirmCart')
+    }).catch((error) => {
+      this.setState({
+        error: `Error sending data: ${error}`,
         loading: false
       });
     });
@@ -39,6 +92,11 @@ class ChooseFerreteriaScreen extends React.Component {
             firstButton,
             secondButton,
             backButton } = styles;
+    if (this.state.loading) {
+      return (
+        <Loading size={'large'} />
+       );
+    }
     return (
       <View style={container}>
         <View style={searchFerreteriaContainer}>
@@ -46,13 +104,15 @@ class ChooseFerreteriaScreen extends React.Component {
           round
           onChangeText={this.incrementalSearchFerreterias}
           onClear={this.clearSearchFerreterias}
-          placeholder='Busca por Distrito'
+          placeholder='Buscar por Distrito'
           inputContainerStyle={{ backgroundColor: '#fff' }}
         />
         </View>
         <ScrollView style={ferreteriaListContainer}>
-
-          <Text>Aquí va la lista de Ferreterias</Text>
+          <FerreteriaCardList
+            ferreterias={this.state.ferreterias}
+            toggleChoseFerreteria={this.toggleChoseFerreteria}
+          />
         </ScrollView>
         <View style={optionButtonsContainer}>
           <View style={firstButton}>
@@ -65,8 +125,8 @@ class ChooseFerreteriaScreen extends React.Component {
             </Button>
         </View>
           <View style={secondButton}>
-            <Button onPress={() => this.props.navigation.navigate('ConfirmCart')} >
-              Agregar
+            <Button onPress={() => this.sendCart()} >
+              Enviar
             </Button>
           </View>
         </View>

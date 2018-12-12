@@ -8,6 +8,7 @@ import TabNavigator from './src/TabNavigator';
 import AuthNavigator from './src/AuthNavigator';
 import MainNavigator from './src/MainNavigator';
 import globalStyles from './src/globalStyles';
+import * as api from './src/services/api'
 import './ReactotronConfig';
 
 export default class App extends React.Component {
@@ -19,11 +20,13 @@ export default class App extends React.Component {
       loading: true,
       unreadMessagesCount: 0,
       cartProductsCount: 0,
+      cartItems: []
     };
     this.newJWT = this.newJWT.bind(this);
     this.deleteJWT = deviceStorage.deleteJWT.bind(this);
     this.loadJWT = deviceStorage.loadJWT.bind(this);
     this.getBubblesCount = this.getBubblesCount.bind(this);
+    this.getCartItems = this.getCartItems.bind(this);
     this.loadJWT();
   }
 
@@ -53,11 +56,29 @@ export default class App extends React.Component {
     });
   }
 
+  getCartItems = () => {
+    api.get(
+      '/carts'
+    ).then((response) => {
+      this.setState({
+        cartItems: response.data.data,
+        loading: false
+      });
+      console.log('FIRED GET CART ITEMS =>', this.state.cartItems)
+    }).catch((error) => {
+      this.setState({
+        error: 'Error retrieving data',
+        loading: false
+      });
+    });
+  }
+
   newJWT(jwt) {
     this.setState({
       jwt: jwt
     });
     this.getBubblesCount();
+    this.getCartItems();
   }
 
   render() {
@@ -82,7 +103,9 @@ export default class App extends React.Component {
                          unreadMessagesCount: this.state.unreadMessagesCount,
                          cartProductsCount: this.state.cartProductsCount,
                          deleteToken: this.deleteJWT,
-                         getBubblesCount: this.getBubblesCount
+                         getBubblesCount: this.getBubblesCount,
+                         getCartItems: this.getCartItems,
+                         cartItems: this.state.cartItems,
                       }}
           />
         </View>

@@ -75,6 +75,7 @@ class ProductScreen extends React.Component {
             onPress: () => {
                             this.props.navigation.navigate('Home')
                             this.props.getBubblesCount()
+                            this.props.getCartItems()
                            }
          },
         ],

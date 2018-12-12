@@ -42,7 +42,7 @@ CartStackNavigator.navigationOptions = ({ screenProps }) => ({
       MainElement={
         <Ionicons
           name={focused ? 'ios-cart' : 'ios-cart'}
-          size={26}
+          size={30}
           style={{ color: tintColor }}
         />
       }

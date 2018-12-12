@@ -18,7 +18,7 @@ const TabNavigator = createMaterialTopTabNavigator(
         tabBarIcon: ({ tintColor, focused }) => (
       <Ionicons
         name={focused ? 'ios-person' : 'ios-person'} //TODO change to focused icon
-        size={26}
+        size={30}
         style={{ color: tintColor }}
       />
     ),
@@ -30,7 +30,7 @@ const TabNavigator = createMaterialTopTabNavigator(
                 tabBarIcon: ({ tintColor, focused }) => (
               <Ionicons
                 name={focused ? 'ios-list-box' : 'ios-list-box'}
-                size={26}
+                size={30}
                 style={{ color: tintColor }}
               />
             ),
@@ -43,7 +43,7 @@ const TabNavigator = createMaterialTopTabNavigator(
                     MainElement={
                       <Ionicons
                         name={focused ? 'ios-notifications' : 'ios-notifications'}
-                        size={26}
+                        size={30}
                         style={{ color: tintColor }}
                       />
                     }
