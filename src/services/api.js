@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
-import apiConfig from './apiConfig';
+import { ENDPOINT } from '../config'
 import deviceStorage from '../services/deviceStorage.js';
 
 export const get = (endpoint, payload = {}, headers = {}) => new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ export const get = (endpoint, payload = {}, headers = {}) => new Promise((resolv
 
       axios({
         method: 'GET',
-        url: apiConfig.development.url + endpoint,
+        url: ENDPOINT + endpoint,
         headers: headers,
         //data: payload,
       })
@@ -27,7 +27,7 @@ export const post = (endpoint, payload = {}, headers = {}) => new Promise((resol
       headers.Authorization = jwt
       axios({
         method: 'POST',
-        url: apiConfig.development.url + endpoint,
+        url: ENDPOINT + endpoint,
         headers: headers,
         data: payload,
       })
@@ -45,7 +45,7 @@ export const destroy = (endpoint, payload = {}, headers = {}) => new Promise((re
       headers.Authorization = jwt
       axios({
         method: 'DELETE',
-        url: apiConfig.development.url + endpoint,
+        url: ENDPOINT + endpoint,
         headers: headers,
       })
       .then((response) => {

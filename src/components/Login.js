@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ENDPOINT, USER_TYPE } from '../config'
 import deviceStorage from '../services/deviceStorage';
 import { Input, TextLink, Loading, Button } from './common';
 import Header from '../components/Header';
@@ -25,7 +26,7 @@ class Login extends Component {
     this.setState({ error: '', loading: true });
 
     // NOTE Post to HTTPS only in production
-    axios.post("http://localhost:3000/login",{
+    axios.post(`${ENDPOINT}/login`, {
       user: {
         login: username,
         password: password

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { View, Text } from 'react-native';
 import axios from 'axios';
+import { ENDPOINT, USER_TYPE } from '../config'
 import { Input, TextLink, Loading, Button } from './common';
 import deviceStorage from '../services/deviceStorage';
 import Header from '../components/Header';
@@ -28,8 +29,10 @@ class Registration extends Component {
 
     this.setState({ error: '', loading: true });
 
+    console.log(`${ENDPOINT}/signup`);
+
     // NOTE Post to HTTPS only in production
-    axios.post("http://localhost:3000/signup", {
+    axios.post(`${ENDPOINT}/signup`, {
       user: {
         phone: phone,
         name: name,

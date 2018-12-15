@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Asset, Font, Icon } from 'expo';
 import axios from 'axios';
+import { ENDPOINT, USER_TYPE } from './src/config'
 import { Loading } from './src/components/common/';
 import deviceStorage from './src/services/deviceStorage.js';
 import TabNavigator from './src/TabNavigator';
@@ -40,7 +41,7 @@ export default class App extends React.Component {
     };
     axios({
       method: 'GET',
-      url: 'http://localhost:3000/user',
+      url: `${ENDPOINT}/user`,
       headers: headers,
     }).then((response) => {
       this.setState({

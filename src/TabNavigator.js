@@ -9,6 +9,7 @@ import NotificationsScreen from './screens/NotificationsScreen';
 import CartScreen from './screens/CartScreen';
 import HomeStackNavigator from './HomeStackNavigator'
 import CartStackNavigator from './CartStackNavigator'
+import QuotesStackNavigator from './QuotesStackNavigator'
 
 const TabNavigator = createMaterialTopTabNavigator(
   {
@@ -25,17 +26,7 @@ const TabNavigator = createMaterialTopTabNavigator(
   }
   },
   Home: HomeStackNavigator,
-  Quotes: { screen: props => <QuotesScreen {...props.screenProps} />,
-              navigationOptions: {
-                tabBarIcon: ({ tintColor, focused }) => (
-              <Ionicons
-                name={focused ? 'ios-list-box' : 'ios-list-box'}
-                size={30}
-                style={{ color: tintColor }}
-              />
-            ),
-      }
-  },
+  Quotes: QuotesStackNavigator,
   Notifications: { screen: props => <NotificationsScreen {...props.screenProps} />,
               navigationOptions: ({ screenProps }) => ({
                 tabBarIcon: ({ tintColor, focused }) => (
@@ -66,7 +57,7 @@ const TabNavigator = createMaterialTopTabNavigator(
   },
   Cart: CartStackNavigator,
 },
-  { initialRouteName: 'Home',
+  { initialRouteName: 'Quotes',
     tabBarPosition: 'top',
     swipeEnabled: false,
     animationEnabled: true,
