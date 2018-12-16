@@ -9,6 +9,7 @@ const {inputStyle, labelStyle, containerStyle } = styles;
       <Text style={labelStyle}>{label}</Text>
       <TextInput
         secureTextEntry={secureTextEntry}
+        autoCapitalize='none'
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}

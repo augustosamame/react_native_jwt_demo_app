@@ -21,6 +21,7 @@ class NewOrderSummaryScreen extends React.Component {
     ).then((response) => {
       this.setState({
         order: response.data.data,
+        cartItems: response.data.included,
         loading: false
       });
     }).catch((error) => {
@@ -40,7 +41,6 @@ class NewOrderSummaryScreen extends React.Component {
             cartItemListContainer,
             optionButtonsContainer,
             firstButton,
-            secondButton,
             backButton } = styles;
 
     console.log('FIRED RENDER OF NEW ORDER SUMMARY SCREEN WITH CART ITEMS =>', this.state.order)
@@ -71,7 +71,7 @@ class NewOrderSummaryScreen extends React.Component {
           <ScrollView style={cartItemListContainer}>
             <CartItemList
               order={this.state.order}
-              cartItems={this.state.order.attributes.carts}
+              cartItems={this.state.cartItems}
             />
           </ScrollView>
           <View style={optionButtonsContainer}>
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
   containerTitles: {
      marginTop: 20,
      justifyContent: 'center',
+     marginBottom: 20,
    },
    titles: {
      justifyContent: 'center',
@@ -139,23 +140,18 @@ const styles = StyleSheet.create({
      fontWeight: 'bold',
    },
    column1: {
-     flex: 0.4,
+     flex: 0.5,
      backgroundColor: '#fff',
      padding: 10,
+     alignItems: 'center',
    },
    column2: {
-     flex: 0.3,
+     flex: 0.5,
      backgroundColor: '#fff',
      padding: 10,
      flexDirection: 'row',
-     justifyContent: 'center'
-   },
-   column3: {
-     flex: 0.3,
-     backgroundColor: '#fff',
-     padding: 10,
-     flexDirection: 'row',
-     justifyContent: 'center'
+     justifyContent: 'center',
+     alignItems: 'center',
    },
 });
 

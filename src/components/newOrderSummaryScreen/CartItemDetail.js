@@ -25,7 +25,7 @@ export default class CartItemDetail extends React.Component {
 
 const styles = StyleSheet.create({
  container: {
-    height: 50,
+    height: 32,
     alignSelf: 'stretch',
     marginLeft: 10,
     marginRight: 10,
@@ -38,15 +38,12 @@ const styles = StyleSheet.create({
   column1: {
     flex: 0.5,
     backgroundColor: '#fff',
-    paddingTop: 18,
-    marginLeft: 10,
+    alignItems: 'center',
   },
   column2: {
     flex: 0.5,
     backgroundColor: '#fff',
-    paddingTop: 18,
-    flexDirection: 'row',
-    justifyContent: 'center'
+    alignItems: 'center',
   },
 
 });

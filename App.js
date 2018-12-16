@@ -65,7 +65,6 @@ export default class App extends React.Component {
         cartItems: response.data.data,
         loading: false
       });
-      console.log('FIRED GET CART ITEMS =>', this.state.cartItems)
     }).catch((error) => {
       this.setState({
         error: 'Error retrieving data',

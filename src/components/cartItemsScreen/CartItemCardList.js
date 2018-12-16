@@ -40,6 +40,7 @@ export default class CartItemCardList extends React.Component {
             <Ionicons style={styles.dateIcon} name="ios-calendar" size={40} color="white"/>
             <TextInput
                 style={styles.input}
+                autoCapitalize='none'
                 selectTextOnFocus={true}
                 //style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                 onChangeText={(text) => this.props.handleDateChange(text)}
@@ -51,6 +52,7 @@ export default class CartItemCardList extends React.Component {
             <Ionicons style={styles.intervalIcon} name="ios-time" size={40} color="white"/>
             <TextInput
                 style={styles.input}
+                autoCapitalize='none'
                 selectTextOnFocus={true}
                 //style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                 onChangeText={(text) => this.props.handleIntervalChange(text)}

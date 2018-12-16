@@ -77,65 +77,77 @@ class CartScreen extends React.Component {
     if (this.state.loading) {
       return (
         <Loading size={'large'} />
-       );
-    } else {
-      console.log('FIRED RENDER OF CART SCREEN WITH CART ITEMS =>', this.props.cartItems)
+      );
+    }
+    if (this.props.cartItems.length === 0) {
       return (
         <View style={container}>
           <NavigationEvents
             onWillFocus={() => this.props.getCartItems()}
           />
           <View style={totalTextContainer}>
-          <Text style={totalTextStyle}>
-            {totalText}
-          </Text>
-          </View>
-          <View style={styles.containerTitles}>
-            <View style={styles.titles}>
-              <View style={styles.column1}>
-                <Text style={styles.titleText}>Producto(s)</Text>
-              </View>
-              <View style={styles.column2}>
-                <Text style={styles.titleText}>Cantidad</Text>
-              </View>
-              <View style={styles.column3}>
-                <Text style={styles.titleText}>Eliminar</Text>
-              </View>
-            </View>
-          </View>
-          <ScrollView style={cartItemListContainer}>
-            <CartItemCardList
-              entregaDate={this.state.entregaDate}
-              entregaInterval={this.state.entregaInterval}
-              removeActiveCartItem={this.removeActiveCartItem}
-              handleIntervalChange={this.handleIntervalChange}
-              handleDateChange={this.handleDateChange}
-              cartItems={this.props.cartItems}
-            />
-          </ScrollView>
-          <View style={optionButtonsContainer}>
-            <View style={firstButton}>
-              <Button style={backButton} onPress={() => { this.props.navigation.navigate('Home'); }} >
-              <Ionicons
-                name={'ios-arrow-back'}
-                size={26}
-                style={{ color: '#fff', alignSelf: 'center' }}
-              />
-              </Button>
-          </View>
-            <View style={secondButton}>
-              <Button onPress={() => this.props.navigation.navigate(
-                'ChooseObra',
-                { chosenDate: this.state.entregaDate, chosenInterval: this.state.entregaInterval }
-              )}
-              >
-                Siguiente
-              </Button>
-            </View>
+            <Text style={totalTextStyle}>
+              Su carrito está vacío
+            </Text>
           </View>
         </View>
       );
     }
+    return (
+      <View style={container}>
+        <NavigationEvents
+          onWillFocus={() => this.props.getCartItems()}
+        />
+        <View style={totalTextContainer}>
+        <Text style={totalTextStyle}>
+          {totalText}
+        </Text>
+        </View>
+        <View style={styles.containerTitles}>
+          <View style={styles.titles}>
+            <View style={styles.column1}>
+              <Text style={styles.titleText}>Producto(s)</Text>
+            </View>
+            <View style={styles.column2}>
+              <Text style={styles.titleText}>Cantidad</Text>
+            </View>
+            <View style={styles.column3}>
+              <Text style={styles.titleText}>Eliminar</Text>
+            </View>
+          </View>
+        </View>
+        <ScrollView style={cartItemListContainer}>
+          <CartItemCardList
+            entregaDate={this.state.entregaDate}
+            entregaInterval={this.state.entregaInterval}
+            removeActiveCartItem={this.removeActiveCartItem}
+            handleIntervalChange={this.handleIntervalChange}
+            handleDateChange={this.handleDateChange}
+            cartItems={this.props.cartItems}
+          />
+        </ScrollView>
+        <View style={optionButtonsContainer}>
+          <View style={firstButton}>
+            <Button style={backButton} onPress={() => { this.props.navigation.navigate('Home'); }} >
+            <Ionicons
+              name={'ios-arrow-back'}
+              size={26}
+              style={{ color: '#fff', alignSelf: 'center' }}
+            />
+            </Button>
+        </View>
+          <View style={secondButton}>
+            <Button onPress={() => this.props.navigation.navigate(
+              'ChooseObra',
+              { chosenDate: this.state.entregaDate, chosenInterval: this.state.entregaInterval }
+            )}
+            >
+              Siguiente
+            </Button>
+          </View>
+        </View>
+      </View>
+    )
   }
 }
 

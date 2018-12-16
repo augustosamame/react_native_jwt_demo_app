@@ -39,6 +39,7 @@ export default class ProductDetail extends React.Component {
           <View style={styles.spinnerSection}>
             <TextInput
                 style={styles.input}
+                autoCapitalize='none'
                 selectTextOnFocus={true}
                 //style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                 //onChangeText={(text) => this.setState({ text })}

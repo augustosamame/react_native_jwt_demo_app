@@ -3,8 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
-  Platform,
-  TextInput
+  Platform
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FerreteriaDetail from './FerreteriaDetail'
