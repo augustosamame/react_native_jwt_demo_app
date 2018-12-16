@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as api from '../../services/api'
 import { Loading } from '../common';
-import ButtonForward from './common/ButtonForward';
+import ButtonForward from '../common/ButtonForward';
 import QuotesList from './QuotesList'
 
 class QuotedOrderDetail extends React.Component {
@@ -60,7 +60,7 @@ class QuotedOrderDetail extends React.Component {
 
               <ButtonForward
                 style={styles.forwardButton}
-                onPress={() => { this.props.navigation.navigate('QuotedOrderSummary', { quoteId: this.props.order.id }); }}
+                onPress={() => { this.props.navigation.navigate('QuotedOrderSummary', { orderId: this.props.order.id }); }}
               >
                 <Ionicons
                   name={'ios-arrow-forward'}

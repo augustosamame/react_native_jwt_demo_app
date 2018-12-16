@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ButtonForward from './common/ButtonForward';
+import ButtonForward from '../common/ButtonForward';
 
 class NewOrderDetail extends React.Component {
 

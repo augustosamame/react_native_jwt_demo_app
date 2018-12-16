@@ -4,9 +4,9 @@ import { withNavigation, NavigationEvents } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as api from '../services/api'
 import { Loading, Button } from '../components/common';
-import CartItemList from '../components/newOrderSummaryScreen/CartItemList'
+import SummaryQuoteList from '../components/quotedOrderSummaryScreen/SummaryQuoteList'
 
-class NewOrderSummaryScreen extends React.Component {
+class QuotedOrderSummaryScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,11 +17,11 @@ class NewOrderSummaryScreen extends React.Component {
 
   componentDidMount() {
     api.get(
-      `/orders/${this.props.navigation.getParam('orderId', '')}?include=carts`
+      `/orders/${this.props.navigation.getParam('orderId', '')}/?include=quotes`
     ).then((response) => {
       this.setState({
         order: response.data.data,
-        cartItems: response.data.included,
+        quotes: response.data.included,
         loading: false
       });
     }).catch((error) => {
@@ -32,44 +32,53 @@ class NewOrderSummaryScreen extends React.Component {
     });
   }
 
+  downloadQuotes() {
+    console.log('Pressed Download Quotes');
+  }
+
 
   render() {
 
     const { container,
             totalTextContainer,
             totalTextStyle,
-            cartItemListContainer,
+            quotesListContainer,
             optionButtonsContainer,
             firstButton,
-            backButton } = styles;
+            middleSpace,
+            secondButton,
+            backButton,
+            downloadButton } = styles;
 
     if (this.state.loading) {
       return (
         <Loading size={'large'} />
        );
     } else {
-      const totalText = 'Productos Seleccionados: ' + this.state.order.attributes.num_products
       return (
         <View style={container}>
           <View style={totalTextContainer}>
           <Text style={totalTextStyle}>
-            {totalText}
+            {`${this.state.order.attributes.chosen_obra  }: ${this.state.order.attributes.delivery_date}`}
           </Text>
           </View>
           <View style={styles.containerTitles}>
             <View style={styles.titles}>
               <View style={styles.column1}>
-                <Text style={styles.titleText}>Producto(s)</Text>
+                <Text style={styles.titleText}>Ferretería</Text>
               </View>
               <View style={styles.column2}>
-                <Text style={styles.titleText}>Cantidad</Text>
+                <Text style={styles.titleText}>Costo Total</Text>
+              </View>
+              <View style={styles.column3}>
+                <Text style={styles.titleText}>Detalle de Precios</Text>
               </View>
             </View>
           </View>
-          <ScrollView style={cartItemListContainer}>
-            <CartItemList
+          <ScrollView style={quotesListContainer}>
+            <SummaryQuoteList
               order={this.state.order}
-              cartItems={this.state.cartItems}
+              quotes={this.state.quotes}
             />
           </ScrollView>
           <View style={optionButtonsContainer}>
@@ -77,6 +86,16 @@ class NewOrderSummaryScreen extends React.Component {
               <Button style={backButton} onPress={() => { this.props.navigation.goBack(); }} >
               <Ionicons
                 name={'ios-arrow-back'}
+                size={26}
+                style={{ color: '#fff', alignSelf: 'center' }}
+              />
+              </Button>
+            </View>
+            <View style={middleSpace} />
+            <View style={secondButton}>
+              <Button style={downloadButton} onPress={() => { this.downloadQuotes(); }} >
+              <Ionicons
+                name={'ios-download'}
                 size={26}
                 style={{ color: '#fff', alignSelf: 'center' }}
               />
@@ -97,11 +116,15 @@ const styles = StyleSheet.create({
     flex: 0.1,
     justifyContent: 'center',
     alignSelf: 'center',
+    marginTop: 20,
+    backgroundColor: '#ccc',
+    paddingLeft: 30,
+    paddingRight: 30,
   },
   totalTextStyle: {
     fontSize: 18,
   },
-  cartItemListContainer: {
+  quotesListContainer: {
     flex: 0.7,
     marginTop: -20
   },
@@ -114,13 +137,22 @@ const styles = StyleSheet.create({
   firstButton: {
     flex: 0.4,
   },
+  middleSpace: {
+    flex: 0.2,
+  },
   secondButton: {
-    flex: 0.6,
+    flex: 0.4,
+    width: 20,
   },
   backButton: {
     flex: 1,
     width: 100,
     height: 100
+  },
+  downloadButton: {
+    flex: 1,
+    width: 100,
+    height: 100,
   },
   containerTitles: {
      marginTop: 20,
@@ -138,19 +170,23 @@ const styles = StyleSheet.create({
      fontWeight: 'bold',
    },
    column1: {
-     flex: 0.5,
+     flex: 0.4,
      backgroundColor: '#fff',
      padding: 10,
      alignItems: 'center',
    },
    column2: {
-     flex: 0.5,
+     flex: 0.3,
      backgroundColor: '#fff',
      padding: 10,
-     flexDirection: 'row',
-     justifyContent: 'center',
+     alignItems: 'center',
+   },
+   column3: {
+     flex: 0.3,
+     backgroundColor: '#fff',
+     padding: 10,
      alignItems: 'center',
    },
 });
 
-export default withNavigation(NewOrderSummaryScreen);
+export default withNavigation(QuotedOrderSummaryScreen);

@@ -23,7 +23,6 @@ export default class SwitchedScrollView extends React.Component {
         <ScrollView>
           <QuotedOrderList
             orders={this.props.orders}
-            quotes={this.props.quotes}
           />
         </ScrollView>
       );

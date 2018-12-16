@@ -19,7 +19,7 @@ export default class QuotesScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.handleChooseStage('stage_new');
+    this.handleChooseStage('stage_quoted');
   }
 
   handleChooseStage(chosenStage) {
@@ -81,7 +81,6 @@ export default class QuotesScreen extends React.Component {
             <SwitchedScrollView
               stage={this.state.stage}
               orders={this.state.orders}
-              quotes={this.state.quotes}
             >
             />
             </SwitchedScrollView>
