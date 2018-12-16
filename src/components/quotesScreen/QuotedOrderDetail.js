@@ -41,7 +41,6 @@ class QuotedOrderDetail extends React.Component {
         <Loading size={'large'} />
        );
     }
-    console.log(this.state.quotes, "==> QUOTES AS STATE IN DETAIL");
 
     return (
       <View style={styles.container}>

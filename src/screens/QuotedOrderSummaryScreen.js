@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
-import { withNavigation, NavigationEvents } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as api from '../services/api'
 import { Loading, Button } from '../components/common';

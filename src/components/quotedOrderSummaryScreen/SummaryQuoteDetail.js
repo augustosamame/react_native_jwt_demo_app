@@ -5,9 +5,10 @@ import {
   StyleSheet
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { withNavigation } from 'react-navigation';
 import ButtonForward from '../common/ButtonForward';
 
-export default class SummaryQuoteDetail extends React.Component {
+class SummaryQuoteDetail extends React.Component {
 
   render() {
     return (
@@ -21,7 +22,7 @@ export default class SummaryQuoteDetail extends React.Component {
         <View style={styles.column3}>
           <ButtonForward
             style={styles.forwardButton}
-            onPress={() => { this.props.navigation.navigate('QuotedSummaryQuoteDetailScreen', { quote: this.props.quote }); }}
+            onPress={() => { this.props.navigation.navigate('QuotedSummaryQuoteDetail', { quote: this.props.quote }); }}
           >
             <Ionicons
               name={'ios-arrow-forward'}
@@ -34,6 +35,8 @@ export default class SummaryQuoteDetail extends React.Component {
     );
   }
 }
+
+export default withNavigation(SummaryQuoteDetail);
 
 const styles = StyleSheet.create({
  container: {

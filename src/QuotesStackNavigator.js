@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import QuotesScreen from './screens/QuotesScreen';
 import NewOrderSummaryScreen from './screens/NewOrderSummaryScreen';
 import QuotedOrderSummaryScreen from './screens/QuotedOrderSummaryScreen';
+import QuotedSummaryQuoteDetailScreen from './screens/QuotedSummaryQuoteDetailScreen';
 
   const QuotesStackNavigator = createStackNavigator({
     Quotes: {
@@ -14,6 +15,9 @@ import QuotedOrderSummaryScreen from './screens/QuotedOrderSummaryScreen';
     },
     QuotedOrderSummary: {
       screen: props => <QuotedOrderSummaryScreen {...props.screenProps} />,
+    },
+    QuotedSummaryQuoteDetail: {
+      screen: props => <QuotedSummaryQuoteDetailScreen {...props.screenProps} />,
     }
 },
   {

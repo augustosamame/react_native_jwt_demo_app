@@ -41,8 +41,6 @@ class ChooseFerreteriaScreen extends React.Component {
   }
 
   toggleChoseFerreteria = (toggledFerreteria, selected) => {
-    console.log('Passed params: ', toggledFerreteria, selected);
-    console.log('state before function: ', this.state.chosen_ferreterias);
     let array = this.state.chosen_ferreterias;
     if (selected) {
       array.push(toggledFerreteria);
