@@ -19,7 +19,7 @@ export default class QuotesScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.handleChooseStage('stage_quoted');
+    this.handleChooseStage('stage_new');
   }
 
   handleChooseStage(chosenStage) {

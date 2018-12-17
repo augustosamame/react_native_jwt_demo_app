@@ -1,8 +1,8 @@
 import React from 'react';
-import { ScrollView, Button, Text } from 'react-native';
-import {  } from '../common';
-import NewOrderList from './NewOrderList'
-import QuotedOrderList from './QuotedOrderList'
+import { ScrollView } from 'react-native';
+import NewOrderList from './NewOrderList';
+import QuotedOrderList from './QuotedOrderList';
+import OrderList from './OrderList';
 
 export default class SwitchedScrollView extends React.Component {
 
@@ -30,7 +30,10 @@ export default class SwitchedScrollView extends React.Component {
     if (this.props.stage === 'stage_confirmed') {
       return (
         <ScrollView>
-          <Text>Confirmed</Text>
+        <OrderList
+          stage={'stage_confirmed'}
+          orders={this.props.orders.data}
+        />
         </ScrollView>
       );
     }
@@ -38,10 +41,12 @@ export default class SwitchedScrollView extends React.Component {
     if (this.props.stage === 'stage_delivered') {
       return (
         <ScrollView>
-          <Text>Delivered</Text>
+        <OrderList
+          stage={'stage_delivered'}
+          orders={this.props.orders.data}
+        />
         </ScrollView>
       );
     }
-
   }
 }

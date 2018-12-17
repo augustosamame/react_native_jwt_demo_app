@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import QuotesScreen from './screens/QuotesScreen';
 import NewOrderSummaryScreen from './screens/NewOrderSummaryScreen';
 import QuotedOrderSummaryScreen from './screens/QuotedOrderSummaryScreen';
-import QuotedSummaryQuoteDetailScreen from './screens/QuotedSummaryQuoteDetailScreen';
+import CommonSummaryQuoteDetailScreen from './screens/CommonSummaryQuoteDetailScreen';
 import ConfirmOrderScreen from './screens/ConfirmOrderScreen';
 
   const QuotesStackNavigator = createStackNavigator({
@@ -17,8 +17,8 @@ import ConfirmOrderScreen from './screens/ConfirmOrderScreen';
     QuotedOrderSummary: {
       screen: props => <QuotedOrderSummaryScreen {...props.screenProps} />,
     },
-    QuotedSummaryQuoteDetail: {
-      screen: props => <QuotedSummaryQuoteDetailScreen {...props.screenProps} />,
+    CommonSummaryQuoteDetail: {
+      screen: props => <CommonSummaryQuoteDetailScreen {...props.screenProps} />,
     },
     ConfirmOrder: {
       screen: props => <ConfirmOrderScreen {...props.screenProps} />,

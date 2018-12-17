@@ -6,7 +6,7 @@ import * as api from '../services/api';
 import { QuoteButton } from '../components/common';
 import QuoteItemList from '../components/quotedOrderSummaryScreen/QuoteItemList';
 
-class QuotedSummaryQuoteDetailScreen extends React.Component {
+class CommonSummaryQuoteDetailScreen extends React.Component {
 
   downloadQuotes() {
     console.log('Pressed Download Quotes');
@@ -29,6 +29,16 @@ class QuotedSummaryQuoteDetailScreen extends React.Component {
     });
   }
 
+  renderConfirmButton() {
+    if (this.props.navigation.getParam('quotedScreen', true)) {
+      return (
+        <QuoteButton style={styles.confirmButton} onPress={() => { this.confirmQuote(this.props.navigation.getParam('quote', [])); }} >
+        <Text>Confirmar Pedido</Text>
+        </QuoteButton>
+      )
+    }
+  }
+
   render() {
     const { container,
             quotesListContainer,
@@ -45,6 +55,7 @@ class QuotedSummaryQuoteDetailScreen extends React.Component {
             confirmButton,
             downloadButton } = styles;
     const quote = this.props.navigation.getParam('quote', []);
+    const quotedScreen = this.props.navigation.getParam('quotedScreen', true);
 
     return (
       <View style={container}>
@@ -96,9 +107,7 @@ class QuotedSummaryQuoteDetailScreen extends React.Component {
               </QuoteButton>
             </View>
             <View style={middleButtonContainer}>
-              <QuoteButton style={confirmButton} onPress={() => { this.confirmQuote(quote); }} >
-              <Text>Confirmar Pedido</Text>
-              </QuoteButton>
+              {this.renderConfirmButton()}
             </View>
             <View style={secondButtonContainer}>
               <QuoteButton style={downloadButton} onPress={() => { this.downloadQuotes(); }} >
@@ -116,7 +125,7 @@ class QuotedSummaryQuoteDetailScreen extends React.Component {
   }
 }
 
-export default withNavigation(QuotedSummaryQuoteDetailScreen);
+export default withNavigation(CommonSummaryQuoteDetailScreen);
 
 const styles = StyleSheet.create({
   container: {

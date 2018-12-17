@@ -22,7 +22,7 @@ class SummaryQuoteDetail extends React.Component {
         <View style={styles.column3}>
           <ButtonForward
             style={styles.forwardButton}
-            onPress={() => { this.props.navigation.navigate('QuotedSummaryQuoteDetail', { quote: this.props.quote }); }}
+            onPress={() => { this.props.navigation.navigate('CommonSummaryQuoteDetail', { quote: this.props.quote }); }}
           >
             <Ionicons
               name={'ios-arrow-forward'}
