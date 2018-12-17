@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text, Button, StyleSheet } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import NotificationCardSection from '../components/notificationsScreen/NotificationCardSection';
 import NotificationCardList from '../components/notificationsScreen/NotificationCardList';
 import { Loading } from '../components/common/';
@@ -17,6 +18,11 @@ export default class NotificationsScreen extends React.Component {
   }
 
   componentDidMount() {
+    this.getNotifications();
+    this.props.getBubblesCount();
+  }
+
+  getNotifications() {
     api.get(
       '/notifications'
     ).then((response) => {
@@ -32,6 +38,14 @@ export default class NotificationsScreen extends React.Component {
     });
   }
 
+  refreshNotifications() {
+    this.getNotifications();
+    this.props.getBubblesCount();
+    setTimeout(function () {
+      api.post('/notifications_mark_as_read');
+    }, 1000);
+  }
+
   render() {
       if (this.state.loading) {
         return (
@@ -40,6 +54,9 @@ export default class NotificationsScreen extends React.Component {
       } else {
         return (
         <View style={{ flex: 1 }}>
+        <NavigationEvents
+          onWillFocus={() => this.refreshNotifications()}
+        />
         <ScrollView style={{ flex: 1 }}>
           <NotificationCardSection title='Nuevas'>
             <NotificationCardList status='status_unread' notifications={this.state.notifications} />
