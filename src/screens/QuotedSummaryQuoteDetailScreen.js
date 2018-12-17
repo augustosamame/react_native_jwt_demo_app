@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as api from '../services/api';
 import { QuoteButton } from '../components/common';
 import QuoteItemList from '../components/quotedOrderSummaryScreen/QuoteItemList';
 
@@ -11,8 +12,21 @@ class QuotedSummaryQuoteDetailScreen extends React.Component {
     console.log('Pressed Download Quotes');
   }
 
-  confirmQuote() {
+  confirmQuote(quote) {
     console.log('Pressed Confirm Quote');
+    this.markQuoteConfirmed();
+    this.props.navigation.navigate('ConfirmOrder', { ferreteriaName: quote.attributes.ferreteria_name });
+  }
+
+  markQuoteConfirmed() {
+    const quoteToConfirm = this.props.navigation.getParam('quote', []);
+    api.post(
+      `/confirm_quote/${quoteToConfirm.id}/`
+    ).then((response) => {
+      console.log('quote confirmed')
+    }).catch((error) => {
+      console.log('error confirming quote ', error);
+    });
   }
 
   render() {
@@ -82,7 +96,7 @@ class QuotedSummaryQuoteDetailScreen extends React.Component {
               </QuoteButton>
             </View>
             <View style={middleButtonContainer}>
-              <QuoteButton style={confirmButton} onPress={() => { this.confirmQuote(); }} >
+              <QuoteButton style={confirmButton} onPress={() => { this.confirmQuote(quote); }} >
               <Text>Confirmar Pedido</Text>
               </QuoteButton>
             </View>

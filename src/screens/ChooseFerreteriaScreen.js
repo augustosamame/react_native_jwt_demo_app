@@ -16,11 +16,6 @@ class ChooseFerreteriaScreen extends React.Component {
       loading: true,
     };
     this.toggleChoseFerreteria.bind(this);
-    console.log('START SCREEN PARAMS');
-    console.log(this.props.navigation.getParam('chosenObra', ''));
-    console.log(this.props.navigation.getParam('chosenDate', ''));
-    console.log(this.props.navigation.getParam('chosenInterval', ''));
-    console.log('END SCREEN PARAMS');
   }
 
   componentDidMount() {
@@ -31,7 +26,6 @@ class ChooseFerreteriaScreen extends React.Component {
         ferreterias: response.data.data,
         loading: false
       });
-      console.log(this.state);
     }).catch((error) => {
       this.setState({
         error: `Error retrieving data: ${error}`,
@@ -50,12 +44,10 @@ class ChooseFerreteriaScreen extends React.Component {
     } else {
         const index = array.indexOf(toggledFerreteria);
         array.splice(index)
-        console.log('found item to delete in array at pos: ', index);
       this.setState({
         chosen_ferreterias: array
       });
     }
-    console.log('state after function: ', this.state.chosen_ferreterias);
   }
 
   sendCart = () => {

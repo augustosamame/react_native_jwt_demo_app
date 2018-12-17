@@ -18,7 +18,6 @@ export default class SwitchedScrollView extends React.Component {
     }
 
     if (this.props.stage === 'stage_quoted') {
-      console.log(this.props.orders, "==> ORDERS AS PROPS");
       return (
         <ScrollView>
           <QuotedOrderList

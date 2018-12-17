@@ -18,7 +18,6 @@ class QuotedOrderDetail extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.order.id, "==> ORDER_ID");
     api.get(
       `/quotes_index_maestro?order=${this.props.order.id}&stage=stage_quoted`
     ).then((response) => {

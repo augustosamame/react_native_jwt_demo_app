@@ -29,8 +29,6 @@ class Registration extends Component {
 
     this.setState({ error: '', loading: true });
 
-    console.log(`${ENDPOINT}/signup`);
-
     // NOTE Post to HTTPS only in production
     axios.post(`${ENDPOINT}/signup`, {
       user: {

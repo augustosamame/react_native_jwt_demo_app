@@ -5,6 +5,7 @@ import QuotesScreen from './screens/QuotesScreen';
 import NewOrderSummaryScreen from './screens/NewOrderSummaryScreen';
 import QuotedOrderSummaryScreen from './screens/QuotedOrderSummaryScreen';
 import QuotedSummaryQuoteDetailScreen from './screens/QuotedSummaryQuoteDetailScreen';
+import ConfirmOrderScreen from './screens/ConfirmOrderScreen';
 
   const QuotesStackNavigator = createStackNavigator({
     Quotes: {
@@ -18,7 +19,10 @@ import QuotedSummaryQuoteDetailScreen from './screens/QuotedSummaryQuoteDetailSc
     },
     QuotedSummaryQuoteDetail: {
       screen: props => <QuotedSummaryQuoteDetailScreen {...props.screenProps} />,
-    }
+    },
+    ConfirmOrder: {
+      screen: props => <ConfirmOrderScreen {...props.screenProps} />,
+    },
 },
   {
     headerMode: 'none',

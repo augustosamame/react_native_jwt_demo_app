@@ -23,7 +23,6 @@ class CartScreen extends React.Component {
   componentDidMount() {
     this.props.getCartItems();
     this.setState({ loading: false });
-    console.log(this.props.cartItems, '<== CartScreen cartItems')
   }
 
   removeActiveCartItem(cartItem) {

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+//import Pusher from 'pusher-js/react-native';
 import { ENDPOINT, USER_TYPE } from '../config'
 import deviceStorage from '../services/deviceStorage';
 import { Input, TextLink, Loading, Button } from './common';
@@ -16,14 +17,13 @@ class Login extends Component {
       error: '',
       loading: false
     };
-
+    this.pusher = null; // variable for storing the Pusher reference
+    this.my_channel = null; // variable for storing the channel assigned to this user
     this.loginUser = this.loginUser.bind(this);
   }
 
   loginUser() {
     const { username, password, password_confirmation } = this.state;
-
-    this.setState({ error: '', loading: true });
 
     // NOTE Post to HTTPS only in production
     axios.post(`${ENDPOINT}/login`, {
@@ -35,6 +35,7 @@ class Login extends Component {
     .then((response) => {
       deviceStorage.saveKey("id_token", response.headers.authorization);
       this.props.newJWT(response.headers.authorization);
+      //this.setPusherData();
     })
     .catch((error) => {
       this.onLoginFail();
@@ -48,8 +49,33 @@ class Login extends Component {
     });
   }
 
-  render() {
+  setPusherData() {
+    this.pusher = new Pusher('d0433bd78c9e17897b78', {
+      authEndpoint: `${ENDPOINT}/pusher/auth`,
+      cluster: 'mt1',
+      encrypted: true,
+      auth: {
+        params: { username: this.username }
+      }
+    });
 
+    this.my_channel = this.pusher.subscribe(this.username);
+
+    this.my_channel.bind('pusher:subscription_error', status => {
+      console.log('Error', 'Subscription error occurred. Please restart the app');
+    });
+
+    // subscription to their own channel succeeded
+    this.my_channel.bind('pusher:subscription_succeeded', data => {
+      console.log("subscription ok: ", data);
+    });
+
+    this.my_channel.bind('new_notification', data => {
+      console.log('!!!! NOTIFICATION RECEIVED !!!!!');
+    });
+  }
+
+  render() {
     const { username, password, error, loading } = this.state;
     const { container, form, section, errorTextStyle, iconContainer, inputContainer, titleText } = styles;
 
