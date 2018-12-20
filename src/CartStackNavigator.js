@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconBadge from 'react-native-icon-badge';
 import CartScreen from './screens/CartScreen';
 import ChooseObraScreen from './screens/ChooseObraScreen';
+import NoObrasScreen from './screens/NoObrasScreen';
 import ChooseFerreteriaScreen from './screens/ChooseFerreteriaScreen';
 import ConfirmCartScreen from './screens/ConfirmCartScreen';
 
@@ -15,6 +16,9 @@ import ConfirmCartScreen from './screens/ConfirmCartScreen';
     },
     ChooseObra: {
       screen: props => <ChooseObraScreen {...props.screenProps} />,
+    },
+    NoObras: {
+      screen: props => <NoObrasScreen {...props.screenProps} />,
     },
     ChooseFerreteria: {
       screen: props => <ChooseFerreteriaScreen {...props.screenProps} />,

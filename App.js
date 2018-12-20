@@ -45,7 +45,6 @@ export default class App extends React.Component {
       url: `${ENDPOINT}/user`,
       headers: headers,
     }).then((response) => {
-      console.log(response.data.data.attributes.obras_count, '=> OBAS COUNT IN APP.JS')
       this.setState({
         unreadMessagesCount: response.data.data.attributes.unread_notifications_count,
         cartProductsCount: response.data.data.attributes.cart_products_count,

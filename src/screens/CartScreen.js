@@ -62,6 +62,18 @@ class CartScreen extends React.Component {
     this.setState({ entregaDate: date });
   }
 
+  obrasNavigation() {
+    if (this.props.noObras) {
+      console.log('reached no obras');
+      this.props.navigation.navigate('NoObras');
+    } else {
+      this.props.navigation.navigate(
+      'ChooseObra',
+      { chosenDate: this.state.entregaDate, chosenInterval: this.state.entregaInterval }
+      );
+    }
+  }
+
   render() {
     const totalText = `Productos Seleccionados: ${this.props.cartProductsCount}`;
     const { container,
@@ -136,10 +148,7 @@ class CartScreen extends React.Component {
         </View>
           <View style={secondButton}>
             <Button
-              onPress={() => this.props.navigation.navigate(
-              'ChooseObra',
-              { chosenDate: this.state.entregaDate, chosenInterval: this.state.entregaInterval }
-            )}
+              onPress={() => this.obrasNavigation()}
             >
               Siguiente
             </Button>

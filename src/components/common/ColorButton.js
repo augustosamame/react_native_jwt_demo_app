@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 const ColorButton = ({ customColor, onPress, children }) => {
-  console.log(customColor, " ==> COLOR PASSED TO BUTTONCOLOR");
   const { button, text } = styles;
   return (
     <View style={{flexDirection: 'row'}}>
