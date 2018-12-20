@@ -77,31 +77,30 @@ class ChooseObraScreen extends React.Component {
       return (
         <Loading size={'large'} />
        );
-    } else {
-      return (
-              <View style={styles.container}>
-                <Text style={styles.title}>Confirma Tu Obra</Text>
-                <ScrollView>
-                  <RadioButtons
-                    obras={this.state.obras}
-                    choseRadioButton={this.choseRadioButton}
-                  />
-                </ScrollView>
-                <Button
-                  style={styles.button}
-                  onPress={() => this.props.navigation.navigate(
-                            'ChooseFerreteria',
-                            { chosenObra: this.state.chosen_obra,
-                              chosenDate: this.props.navigation.getParam('chosenDate', ''),
-                              chosenInterval: this.props.navigation.getParam('chosenInterval', '')
-                             }
-                          )}
-                >
-                  Enviar
-                </Button>
-              </View>
-      );
     }
+    return (
+            <View style={styles.container}>
+              <Text style={styles.title}>Confirma Tu Obra</Text>
+              <ScrollView>
+                <RadioButtons
+                  obras={this.state.obras}
+                  choseRadioButton={this.choseRadioButton}
+                />
+              </ScrollView>
+              <Button
+                style={styles.button}
+                onPress={() => this.props.navigation.navigate(
+                          'ChooseFerreteria',
+                          { chosenObra: this.state.chosen_obra,
+                            chosenDate: this.props.navigation.getParam('chosenDate', ''),
+                            chosenInterval: this.props.navigation.getParam('chosenInterval', '')
+                           }
+                        )}
+              >
+                Enviar
+              </Button>
+            </View>
+    );
   }
 }
 

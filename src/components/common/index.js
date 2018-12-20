@@ -3,6 +3,7 @@ export * from './QuoteButton';
 export * from './DetalleButton';
 export * from './CallButton';
 export * from './ColorButton';
+export * from './EditObraButton';
 export * from './Input';
 export * from './RegistrationInput';
 export * from './TextLink';

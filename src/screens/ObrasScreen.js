@@ -1,37 +1,35 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, TextInput, Alert } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as api from '../services/api';
 import { Loading, Button, ColorButton } from '../components/common/';
+import ObraDetail from '../components/obrasScreen/ObraDetail'
 
-export default class ObrasScreen extends React.Component {
+class ObrasScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
-      email: '',
-      username: '',
-      phone: '',
-      password: '',
+      obras: [],
       name: '',
+      address: '',
+      district: '',
+      lote: '',
+      urbanizacion: '',
       error: ''
     };
   }
 
   componentDidMount() {
-    const headers = {
-      Authorization: this.props.jwt
-    };
-    api.get('/user')
-    .then((response) => {
+    api.get(
+      '/obras'
+    ).then((response) => {
       this.setState({
-        email: response.data.data.attributes.email,
-        phone: response.data.data.attributes.phone,
-        username: response.data.data.attributes.username,
-        name: response.data.data.attributes.name,
-        loading: false
+        obras: response.data.data,
+        loading: false,
       });
-    }).catch((error) => {
+      }).catch((error) => {
       this.setState({
         error: 'Error retrieving data',
         loading: false
@@ -39,81 +37,160 @@ export default class ObrasScreen extends React.Component {
     });
   }
 
-  render() {
-    const { container, sectionTitleTextStyle, profileText, errorText, profileTextContainer } = styles;
-    const { loading, email, username, phone, name, error, password } = this.state;
+  renderObras() {
+    return this.state.obras.map(obra => {
+              return (
+                <ObraDetail
+                  key={obra.id}
+                  obra={obra}
+                />
+              );
+    });
+  }
 
-    if (loading) {
-      return (
-        <View style={container}>
-          <Loading size={'large'} />
-        </View>
+  saveNewObra() {
+
+    const newObraArray = {obra: {
+        name: this.state.name,
+        address: this.state.address,
+        district: this.state.district,
+        city: 'Lima',
+        province: 'Lima',
+        department: 'Lima',
+      }
+    };
+    this.setState({
+      loading: true,
+    })
+
+    api.post(
+      '/obras',
+      newObraArray
+    ).then((response) => {
+      this.setState({
+        obras: response.data.data,
+        name: '',
+        address: '',
+        district: '',
+        lote: '',
+        urbanizacion: '',
+        loading: false,
+      });
+      Alert.alert(
+        'Tu obra ha sido añadida con éxito', '',
+        [
+          { text: 'Aceptar',
+            onPress: () => {}
+         },
+        ],
+        { cancelable: false }
       );
-    }
+      }).catch((error) => {
+      this.setState({
+        error: 'Error saving Obra',
+        loading: false
+      });
+    });
+  }
 
+  render() {
+    if (this.state.loading) {
+      return (
+        <Loading size={'large'} />
+       );
+    }
     return (
-      <View style={{ flex: 1 }}>
-        <Text style={sectionTitleTextStyle}>Mis Datos</Text>
-        {email ?
-          <View style={profileTextContainer}>
-          <Text style={profileText}>
-            Nombre y apellido: {name}
-          </Text>
-          <Text style={profileText}>
-            Celular: {phone}
-          </Text>
-          <Text style={profileText}>
-            Correo: {email}
-          </Text>
-          <Text style={profileText}>
-            Nombre de usuario: {username}
-          </Text>
-          <Text style={profileText}>
-            Contraseña: {password}
-          </Text>
-          </View>
-          :
-          <Text style={errorText}>
-            {error}
-          </Text>
-        }
-        <View style={{ marginTop: 20 }}>
-          <Button
-            onPress={() => { this.props.navigation.navigate('EditUser'); }}
-          >
-          Editar Mis Datos
-          </Button>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <Button
-            onPress={this.props.deleteToken}
-          >
-          Cerrar Sesión
-          </Button>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          <ColorButton
-            onPress={() => { this.props.navigation.navigate('Obras'); }}
-            customColor={'yellow'}
-          >
-          Mis Obras
-          </ColorButton>
-        </View>
-      </View>
+            <View style={styles.container}>
+              <ScrollView>
+                {this.renderObras()}
+                <View style= {{ flexDirection: 'row', marginLeft: 40, marginTop: 20 }}>
+                  <Ionicons style={styles.obraIcon} name="ios-home" size={25} color="black"/>
+                  <Text style={styles.name}>Mi Obra</Text>
+                </View>
+                <View style={styles.formObra}>
+                  <TextInput
+                      style={styles.input}
+                      autoCapitalize='none'
+                      selectTextOnFocus={true}
+                      placeholder={'Nombre de mi Obra'}
+                      onChangeText={(text) => this.setState({ name: text })}
+                      value={this.state.name}
+                      underlineColorAndroid="transparent"
+                  />
+                  <TextInput
+                      style={styles.input}
+                      autoCapitalize='none'
+                      selectTextOnFocus={true}
+                      placeholder={'Dirección'}
+                      onChangeText={(text) => this.setState({ address: text })}
+                      value={this.state.address}
+                      underlineColorAndroid="transparent"
+                  />
+                  <TextInput
+                      style={styles.input}
+                      autoCapitalize='none'
+                      selectTextOnFocus={true}
+                      placeholder={'Distrito'}
+                      onChangeText={(text) => this.setState({ district: text })}
+                      value={this.state.district}
+                      underlineColorAndroid="transparent"
+                  />
+                  <TextInput
+                      style={styles.input}
+                      autoCapitalize='none'
+                      selectTextOnFocus={true}
+                      placeholder={'Lote'}
+                      onChangeText={(text) => this.setState({ lote: text })}
+                      value={this.state.lote}
+                      underlineColorAndroid="transparent"
+                  />
+                  <TextInput
+                      style={styles.input}
+                      autoCapitalize='none'
+                      selectTextOnFocus={true}
+                      placeholder={'Urbanización'}
+                      onChangeText={(text) => this.setState({ urbanizacion: text })}
+                      value={this.state.urbanizacion}
+                      underlineColorAndroid="transparent"
+                  />
+                </View>
+              </ScrollView>
+              <Button
+                style={styles.button}
+                onPress={() => this.saveNewObra()}
+              >
+                Grabar Obra
+              </Button>
+              <Button
+                style={styles.button}
+                onPress={() => this.props.navigation.navigate('Profile')}
+              >
+                Finalizar
+              </Button>
+            </View>
     );
   }
+
 }
+
+export default withNavigation(ObrasScreen)
 
 const styles = {
   container: {
     flex: 1,
-    justifyContent: 'center'
   },
-  sectionTitleTextStyle: {
-    fontSize: 18,
-    marginTop: 10,
-    marginLeft: 54,
-    fontWeight: 'bold',
+  formObra: {
+    marginTop: 20,
+    marginLeft: 40,
+    marginRight: 40,
+    backgroundColor: '#fff',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 5,
+    paddingLeft: 5,
   },
   profileTextContainer: {
     alignSelf: 'center',
@@ -127,5 +204,10 @@ const styles = {
     alignSelf: 'center',
     fontSize: 18,
     color: 'red'
-  }
+  },
+  obraIcon: {
+    marginTop: -5,
+    marginRight: 5,
+    marginLeft: 10,
+  },
 };

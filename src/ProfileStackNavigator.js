@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfileScreen from './screens/ProfileScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import ObrasScreen from './screens/ObrasScreen';
+import EditObraScreen from './screens/EditObraScreen';
 
   const HomeStackNavigator = createStackNavigator({
     Profile: {
@@ -17,6 +18,12 @@ import ObrasScreen from './screens/ObrasScreen';
     },
     Obras: {
       screen: props => <ObrasScreen {...props.screenProps} />,
+      navigationOptions: {
+        tabBarVisible: false,
+      }
+    },
+    EditObra: {
+      screen: props => <EditObraScreen {...props.screenProps} />,
       navigationOptions: {
         tabBarVisible: false,
       }

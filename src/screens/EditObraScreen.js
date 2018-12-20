@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation';
 import * as api from '../services/api';
 import { Loading, Button, ColorButton } from '../components/common/';
 
-class ProfileScreen extends React.Component {
+class EditObraScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +69,7 @@ class ProfileScreen extends React.Component {
             Nombre de usuario: {username}
           </Text>
           <Text style={profileText}>
-            Contraseña: ******
+            Contraseña: {password}
           </Text>
           </View>
           :
@@ -79,7 +79,7 @@ class ProfileScreen extends React.Component {
         }
         <View style={{ marginTop: 20 }}>
           <Button
-            onPress={() => { this.props.navigation.navigate('EditProfile'); }}
+            onPress={() => { this.props.navigation.navigate('EditUser'); }}
           >
           Editar Mis Datos
           </Button>
@@ -104,7 +104,7 @@ class ProfileScreen extends React.Component {
   }
 }
 
-export default withNavigation(ProfileScreen)
+export default withNavigation(EditObraScreen)
 
 const styles = {
   container: {
@@ -123,8 +123,7 @@ const styles = {
   },
   profileText: {
     color: 'black',
-    fontSize: 16,
-    marginTop: 5,
+    fontSize: 16
   },
   errorText: {
     alignSelf: 'center',
