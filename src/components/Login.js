@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View, StyleSheet, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, KeyboardAvoidingView } from 'react-native';
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //import Pusher from 'pusher-js/react-native';
@@ -44,7 +44,7 @@ class Login extends Component {
 
   onLoginFail() {
     this.setState({
-      error: 'Error al iniciar sesión',
+      error: 'Usuario o contraseña incorrecta',
       loading: false
     });
   }
@@ -85,7 +85,7 @@ class Login extends Component {
         <View style={form}>
           <ImageBackground source={require('./cemento-login.jpg')} style={{ flex: 1, marginBottom: 30 }}>
           <View style={{marginTop: 120}}>
-            <Text style={titleText}>Iniciar Sesión</Text>
+            <Text style={titleText}>INICIAR SESIÓN</Text>
             <View style={section}>
               <View style={iconContainer}>
                 <Ionicons
@@ -124,23 +124,27 @@ class Login extends Component {
           </ImageBackground>
 
         </View>
+        <KeyboardAvoidingView
+          behavior="padding"
+          keyboardVerticalOffset={30}
+        >
+          <TextLink style={{ }} onPress={this.props.formSwitch}>
+            Aún no estas registrado? Regístrate
+          </TextLink>
+          <TextLink style={{ }} onPress={this.props.forgotPassword}>
+            Olvidaste tu contraseña?
+          </TextLink>
+          <Text style={errorTextStyle}>
+            {error}
+          </Text>
 
-        <TextLink style={{ }} onPress={this.props.formSwitch}>
-          Aún no estas registrado? Regístrate
-        </TextLink>
-        <TextLink style={{ }} onPress={this.props.forgotPassword}>
-          Olvidaste tu contraseña?
-        </TextLink>
-        <Text style={errorTextStyle}>
-          {error}
-        </Text>
-
-        {!loading ?
-          <Button onPress={this.loginUser}>
-            Ingresar
-          </Button>
-          :
-          <Loading size={'large'} />}
+          {!loading ?
+            <Button onPress={this.loginUser}>
+              Ingresar
+            </Button>
+            :
+            <Loading size={'large'} />}
+        </KeyboardAvoidingView>
       </View>
     );
   }

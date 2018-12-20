@@ -1,8 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import CategoryList from '../components/CategoryList';
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,12 +13,21 @@ export default class HomeScreen extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.noObras) {
+      //this.props.navigation.navigate('Profile');
+    }
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <CategoryList
-          style={{ justifyContent: 'space-evenly' }} />
+          style={{ justifyContent: 'space-evenly' }}
+        />
       </View>
     );
   }
 }
+
+export default withNavigation(HomeScreen);

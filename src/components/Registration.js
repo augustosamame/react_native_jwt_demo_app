@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import axios from 'axios';
-import { ENDPOINT, USER_TYPE } from '../config'
-import { Input, TextLink, Loading, Button } from './common';
+import { ENDPOINT, USER_TYPE } from '../config';
+import { TextLink, Loading, Button, RegistrationInput } from './common';
 import deviceStorage from '../services/deviceStorage';
 import Header from '../components/Header';
 
@@ -15,7 +15,6 @@ class Registration extends Component {
       password: '',
       name: '',
       phone: '',
-      password_confirmation: '',
       error: '',
       loading: false
     };
@@ -24,20 +23,28 @@ class Registration extends Component {
     this.onRegistrationFail = this.onRegistrationFail.bind(this);
   }
 
+  onRegistrationFail(error) {
+    console.log(error);
+    this.setState({
+      error: 'Error en el Registro',
+      loading: false
+    });
+  }
+
   registerUser() {
-    const { email, username, password, password_confirmation, phone, name } = this.state;
+    const { email, username, password, phone, name } = this.state;
 
     this.setState({ error: '', loading: true });
 
     // NOTE Post to HTTPS only in production
     axios.post(`${ENDPOINT}/signup`, {
       user: {
-        phone: phone,
-        name: name,
-        username: username,
-        email: email,
-        password: password,
-        password_confirmation: password_confirmation
+        phone,
+        name,
+        username,
+        email,
+        password,
+        password_confirmation: password
       }
     },
     )
@@ -46,28 +53,24 @@ class Registration extends Component {
       this.props.newJWT(response.headers.authorization);
     })
     .catch((error) => {
-      this.onRegistrationFail();
-    });
-  }
-
-  onRegistrationFail() {
-    this.setState({
-      error: 'Error en el registro',
-      loading: false
+      console.log(error.response.data.errors, '==> RESPONSE returned from API');
+      this.onRegistrationFail(error);
     });
   }
 
   render() {
-    const { email, phone, name, username, password, password_confirmation, error, loading } = this.state;
-    const { form, contents, section, errorTextStyle, container } = styles;
+    const { email, phone, name, username, password, error, loading } = this.state;
+    const { contents, section, errorTextStyle, container } = styles;
 
     return (
       <View style={container}>
-        <Header title="Hola Maestro" />
+        <Header
+          title="Hola Maestro"
+          dark
+        />
       <View style={contents}>
         <View style={section}>
-          <Input
-            placeholder="nombre completo"
+          <RegistrationInput
             label="Nombre y Apellido"
             value={name}
             onChangeText={name => this.setState({ name })}
@@ -75,8 +78,7 @@ class Registration extends Component {
         </View>
 
         <View style={section}>
-          <Input
-            placeholder="número celular"
+          <RegistrationInput
             label="Celular"
             value={phone}
             onChangeText={phone => this.setState({ phone })}
@@ -84,56 +86,43 @@ class Registration extends Component {
         </View>
 
         <View style={section}>
-          <Input
-            placeholder="usuario@email.com"
+          <RegistrationInput
             label="Correo"
             value={email}
             onChangeText={email => this.setState({ email })}
           />
         </View>
 
-          <View style={form}>
-            <View style={section}>
-              <Input
-                placeholder="Usuario"
-                label="Nombre de Usuario"
-                value={username}
-                onChangeText={username => this.setState({ username })}
-              />
-            </View>
 
-            <View style={section}>
-              <Input
-                secureTextEntry
-                placeholder="contraseña"
-                label="Contraseña"
-                value={password}
-                onChangeText={password => this.setState({ password })}
-              />
-            </View>
+        <View style={section}>
+          <RegistrationInput
+            label="Nombre de Usuario"
+            value={username}
+            onChangeText={username => this.setState({ username })}
+          />
+        </View>
 
-            <View style={section}>
-              <Input
-                secureTextEntry
-                placeholder="confirmar contraseña"
-                label="Confirmar Contraseña"
-                value={password_confirmation}
-                onChangeText={password_confirmation => this.setState({ password_confirmation })}
-              />
-            </View>
+        <View style={section}>
+          <RegistrationInput
+            secureTextEntry
+            label="Contraseña"
+            value={password}
+            onChangeText={password => this.setState({ password })}
+          />
+        </View>
 
-            <Text style={errorTextStyle}>
-              {error}
-            </Text>
+        <Text style={errorTextStyle}>
+          {error}
+        </Text>
 
-            {!loading ?
-              <Button onPress={this.registerUser}>
-                Crear Registro
-              </Button>
-              :
-              <Loading size={'large'} />
-            }
-          </View>
+        {!loading ?
+          <Button onPress={this.registerUser}>
+            Crear Registro
+          </Button>
+          :
+          <Loading size={'large'} />
+        }
+
           <TextLink onPress={this.props.formSwitch}>
             Ya tiene una cuenta? Inicia Sesión
           </TextLink>
@@ -146,10 +135,14 @@ class Registration extends Component {
 const styles = {
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: '#eee',
   },
   contents: {
-    marginTop: 100,
-    flex: 0.8,
+    flex: 0.7,
+    justifyContent: 'flex-start',
+    marginTop: 10,
   },
   form: {
     width: '100%',
@@ -157,10 +150,11 @@ const styles = {
     borderColor: '#ddd',
   },
   section: {
-    flexDirection: 'row',
+    flex: 1,
+    flexDirection: 'column',
     borderBottomWidth: 1,
-    backgroundColor: '#fff',
     borderColor: '#ddd',
+    marginBottom: 10,
   },
   errorTextStyle: {
     alignSelf: 'center',

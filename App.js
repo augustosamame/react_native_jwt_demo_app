@@ -21,6 +21,7 @@ export default class App extends React.Component {
       loading: true,
       unreadMessagesCount: 0,
       cartProductsCount: 0,
+      obrasCount: 0,
       cartItems: []
     };
     this.newJWT = this.newJWT.bind(this);
@@ -44,9 +45,11 @@ export default class App extends React.Component {
       url: `${ENDPOINT}/user`,
       headers: headers,
     }).then((response) => {
+      console.log(response.data.data.attributes.obras_count, '=> OBAS COUNT IN APP.JS')
       this.setState({
         unreadMessagesCount: response.data.data.attributes.unread_notifications_count,
         cartProductsCount: response.data.data.attributes.cart_products_count,
+        obrasCount: response.data.data.attributes.obras_count,
         loading: false
       });
     }).catch((error) => {
@@ -106,6 +109,7 @@ export default class App extends React.Component {
                          getBubblesCount: this.getBubblesCount,
                          getCartItems: this.getCartItems,
                          cartItems: this.state.cartItems,
+                         noObras: this.state.obrasCount === 0,
                       }}
           />
         </View>

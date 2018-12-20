@@ -5,7 +5,7 @@ const Button = ({ onPress, children }) => {
   const { button, text } = styles;
   return (
     <View style={{flexDirection: 'row'}}>
-      <TouchableOpacity onPress={onPress} style={button}>
+      <TouchableOpacity onPress={onPress} style={button}> 
         <Text style={text}>
           {children}
         </Text>

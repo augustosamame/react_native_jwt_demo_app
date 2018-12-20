@@ -4,27 +4,16 @@ import { createMaterialTopTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconBadge from 'react-native-icon-badge';
 import ProfileScreen from './screens/ProfileScreen';
-import QuotesScreen from './screens/QuotesScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
-import CartScreen from './screens/CartScreen';
-import HomeStackNavigator from './HomeStackNavigator'
-import CartStackNavigator from './CartStackNavigator'
-import QuotesStackNavigator from './QuotesStackNavigator'
+import HomeStackNavigator from './HomeStackNavigator';
+import CartStackNavigator from './CartStackNavigator';
+import QuotesStackNavigator from './QuotesStackNavigator';
+import ProfileStackNavigator from './ProfileStackNavigator';
+import InitialRoute from './InitialRoute';
 
 const TabNavigator = createMaterialTopTabNavigator(
   {
-  Profile: {
-    screen: props => <ProfileScreen {...props.screenProps} />,
-    navigationOptions: {
-        tabBarIcon: ({ tintColor, focused }) => (
-      <Ionicons
-        name={focused ? 'ios-person' : 'ios-person'} //TODO change to focused icon
-        size={30}
-        style={{ color: tintColor }}
-      />
-    ),
-  }
-  },
+  Profile: ProfileStackNavigator,
   Home: HomeStackNavigator,
   Quotes: QuotesStackNavigator,
   Notifications: { screen: props => <NotificationsScreen {...props.screenProps} />,
@@ -57,7 +46,7 @@ const TabNavigator = createMaterialTopTabNavigator(
   },
   Cart: CartStackNavigator,
 },
-  { initialRouteName: 'Quotes',
+  { initialRouteName: 'Profile',
     tabBarPosition: 'top',
     swipeEnabled: false,
     animationEnabled: true,
@@ -88,12 +77,7 @@ const screenTitles = {
 TabNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const headerTitle = screenTitles[routeName].title;
-
-  let tabBarVisible = false
-
-  if (headerTitle === 'Selecciona la Categoría') {
-    tabBarPosition = false;
-  }
+  const tabBarVisible = false;
   return {
     headerTitle,
     tabBarVisible

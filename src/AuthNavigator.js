@@ -12,10 +12,7 @@ const AuthNavigator = createBottomTabNavigator(
   { initialRouteName: 'Auth',
     tabBarOptions: {
       showLabel: false,
-      activeTintColor: '#fff',
-      activeBackgroundColor: '#fff',
-      inactiveTintColor: '#fff',
-      inactiveBackgroundColor: '#fff',
+      activeBackgroundColor: '#eee',
     }
   }
 );

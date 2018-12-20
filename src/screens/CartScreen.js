@@ -2,9 +2,9 @@ import React from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { withNavigation, NavigationEvents } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import * as api from '../services/api'
+import * as api from '../services/api';
 import { Loading, Button } from '../components/common';
-import CartItemCardList from '../components/cartItemsScreen/CartItemCardList'
+import CartItemCardList from '../components/cartItemsScreen/CartItemCardList';
 
 class CartScreen extends React.Component {
   constructor(props) {
@@ -15,9 +15,9 @@ class CartScreen extends React.Component {
       entregaInterval: '8:00 - 10:00am',
       error: '',
     };
-    this.removeActiveCartItem = this.removeActiveCartItem.bind(this)
-    this.handleIntervalChange = this.handleIntervalChange.bind(this)
-    this.handleDateChange = this.handleDateChange.bind(this)
+    this.removeActiveCartItem = this.removeActiveCartItem.bind(this);
+    this.handleIntervalChange = this.handleIntervalChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +26,6 @@ class CartScreen extends React.Component {
   }
 
   removeActiveCartItem(cartItem) {
-
     //TODO improve this to work locally with something like this:
     //const array = this.state.cartItems
     //for (let i = array.length - 1; i >= 0; i--) {
@@ -40,14 +39,14 @@ class CartScreen extends React.Component {
     //});
 
     api.destroy(
-      '/carts/' + cartItem
-    ).then((response) => {
+      `/carts/${cartItem}`
+    ).then(() => {
       this.setState({
         loading: false
       });
       this.props.getBubblesCount();
       this.props.getCartItems();
-    }).catch((error) => {
+    }).catch(() => {
       this.setState({
         error: 'Error retrieving data',
         loading: false
@@ -56,15 +55,15 @@ class CartScreen extends React.Component {
   }
 
   handleIntervalChange(interval) {
-    this.setState({ entregaInterval: interval })
+    this.setState({ entregaInterval: interval });
   }
 
   handleDateChange(date) {
-    this.setState({ entregaDate: date })
+    this.setState({ entregaDate: date });
   }
 
   render() {
-    const totalText = 'Productos Seleccionados: ' + this.props.cartProductsCount
+    const totalText = `Productos Seleccionados: ${this.props.cartProductsCount}`;
     const { container,
             totalTextContainer,
             totalTextStyle,
@@ -136,7 +135,8 @@ class CartScreen extends React.Component {
             </Button>
         </View>
           <View style={secondButton}>
-            <Button onPress={() => this.props.navigation.navigate(
+            <Button
+              onPress={() => this.props.navigation.navigate(
               'ChooseObra',
               { chosenDate: this.state.entregaDate, chosenInterval: this.state.entregaInterval }
             )}
@@ -146,7 +146,7 @@ class CartScreen extends React.Component {
           </View>
         </View>
       </View>
-    )
+    );
   }
 }
 
