@@ -29,6 +29,7 @@ class ObrasScreen extends React.Component {
         obras: response.data.data,
         loading: false,
       });
+      this.updateObrasCount();
       }).catch((error) => {
       this.setState({
         error: 'Error retrieving data',

@@ -29,6 +29,7 @@ export default class App extends React.Component {
     this.loadJWT = deviceStorage.loadJWT.bind(this);
     this.getBubblesCount = this.getBubblesCount.bind(this);
     this.getCartItems = this.getCartItems.bind(this);
+    this.updateObrasCount = this.updateObrasCount.bind(this);
     this.loadJWT();
   }
 
@@ -75,6 +76,27 @@ export default class App extends React.Component {
     });
   }
 
+  updateObrasCount() {
+    const headers = {
+      Authorization: this.state.jwt
+    };
+    axios({
+      method: 'GET',
+      url: `${ENDPOINT}/user`,
+      headers: headers,
+    }).then((response) => {
+      this.setState({
+        obrasCount: response.data.data.attributes.obras_count,
+        loading: false
+      });
+    }).catch((error) => {
+      this.setState({
+        error: 'Error retrieving count of',
+        loading: false
+      });
+    });
+  }
+
   newJWT(jwt) {
     this.setState({
       jwt: jwt
@@ -108,7 +130,7 @@ export default class App extends React.Component {
                          getBubblesCount: this.getBubblesCount,
                          getCartItems: this.getCartItems,
                          cartItems: this.state.cartItems,
-                         noObras: this.state.obrasCount === 0,
+                         obrasCount: this.state.obrasCount,
                       }}
           />
         </View>

@@ -14,8 +14,8 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.noObras) {
-      //this.props.navigation.navigate('Profile');
+    if (this.props.obrasCount === 0) {
+      
     }
   }
 

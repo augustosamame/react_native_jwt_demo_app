@@ -63,8 +63,7 @@ class CartScreen extends React.Component {
   }
 
   obrasNavigation() {
-    if (this.props.noObras) {
-      console.log('reached no obras');
+    if (this.props.obrasCount === 0) {
       this.props.navigation.navigate('NoObras');
     } else {
       this.props.navigation.navigate(
