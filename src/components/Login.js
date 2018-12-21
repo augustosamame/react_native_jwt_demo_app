@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View, StyleSheet, ImageBackground, KeyboardAvoidingView } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, KeyboardAvoidingView, ScrollView } from 'react-native';
 import axios from 'axios';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //import Pusher from 'pusher-js/react-native';
@@ -124,6 +124,7 @@ class Login extends Component {
           </ImageBackground>
 
         </View>
+
         <KeyboardAvoidingView
           behavior="padding"
           keyboardVerticalOffset={30}
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   form: {
-    flex: 0.8
+    flex: 0.6
   },
   section: {
     flexDirection: 'row',
