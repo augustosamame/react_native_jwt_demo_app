@@ -80,11 +80,16 @@ class Login extends Component {
     const { container, form, section, errorTextStyle, iconContainer, inputContainer, titleText } = styles;
 
     return (
-      <View style={container}>
+      <KeyboardAvoidingView
+      style={container}
+        //behavior="padding"
+        keyboardVerticalOffset={30}
+      >
+
         <Header title="¡Bienvenido Amigo Maestro!" />
         <View style={form}>
           <ImageBackground source={require('./cemento-login.jpg')} style={{ flex: 1, marginBottom: 30 }}>
-          <View style={{marginTop: 120}}>
+          <View style={{paddingTop: 10}}>
             <Text style={titleText}>INICIAR SESIÓN</Text>
             <View style={section}>
               <View style={iconContainer}>
@@ -96,7 +101,7 @@ class Login extends Component {
               </View>
               <View style={inputContainer}>
                 <Input
-                  placeholder="Usuario"
+                  placeholder="Nombre de Usuario"
                   value={username}
                   onChangeText={username => this.setState({ username })}
                 />
@@ -125,10 +130,6 @@ class Login extends Component {
 
         </View>
 
-        <KeyboardAvoidingView
-          behavior="padding"
-          keyboardVerticalOffset={30}
-        >
           <TextLink style={{ }} onPress={this.props.formSwitch}>
             Aún no estas registrado? Regístrate
           </TextLink>
@@ -146,7 +147,7 @@ class Login extends Component {
             :
             <Loading size={'large'} />}
         </KeyboardAvoidingView>
-      </View>
+
     );
   }
 }

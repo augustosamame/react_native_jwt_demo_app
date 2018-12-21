@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ferretero_app",
+    "name": "Ferreterías Perú",
     "description": "Release Candidate App Ferretero Lucky",
     "slug": "ferretero_app",
     "privacy": "public",
@@ -9,7 +9,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.lucky.ferretero",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.lucky.ferretero"
     }
   }
 }
