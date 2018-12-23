@@ -86,7 +86,7 @@ class Login extends Component {
         keyboardVerticalOffset={30}
       >
 
-        <Header title="¡Bienvenido Amigo Maestro!" />
+        <Header title={USER_TYPE === 'maestro' ? '¡Bienvenido Amigo Maestro!' : '¡Bienvenido Amigo Ferretero!'} />
         <View style={form}>
           <ImageBackground source={require('./cemento-login.jpg')} style={{ flex: 1, marginBottom: 30 }}>
           <View style={{paddingTop: 10}}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Login, Registration } from '../components';
+import { USER_TYPE } from '../config'
+import { Login, MaestroRegistration, FerreteroRegistration } from '../components';
 
 export default class AuthScreen extends Component {
   constructor(props) {
@@ -20,8 +21,13 @@ export default class AuthScreen extends Component {
 
   whichForm() {
     if (!this.state.showLogin) {
+      if (USER_TYPE === 'maestro') {
+        return (
+          <MaestroRegistration newJWT={this.props.setToken} formSwitch={this.formSwitch} />
+        );
+      }
       return (
-        <Registration newJWT={this.props.setToken} formSwitch={this.formSwitch} />
+        <FerreteroRegistration newJWT={this.props.setToken} formSwitch={this.formSwitch} />
       );
     } else {
       return (

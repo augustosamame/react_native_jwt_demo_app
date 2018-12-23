@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-import TabNavigator from './TabNavigator';
+import MaestroTabNavigator from './MaestroTabNavigator';
 
-  const MainNavigator = createStackNavigator({
-    Main: TabNavigator },
+  const MainMaestroNavigator = createStackNavigator({
+    Main: MaestroTabNavigator },
     {
       initialRouteName: 'Main',
       defaultNavigationOptions: {
@@ -15,4 +15,4 @@ import TabNavigator from './TabNavigator';
       }
   });
 
-export default createAppContainer(MainNavigator);
+export default createAppContainer(MainMaestroNavigator);

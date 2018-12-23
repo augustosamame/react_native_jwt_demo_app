@@ -6,7 +6,7 @@ import { TextLink, Loading, Button, RegistrationInput } from './common';
 import deviceStorage from '../services/deviceStorage';
 import Header from '../components/Header';
 
-class Registration extends Component {
+class FerreteroRegistration extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,7 +65,7 @@ class Registration extends Component {
     return (
       <View style={container}>
         <Header
-          title="Hola Maestro"
+          title="Registro Ferretero"
           dark
         />
       <View style={contents}>
@@ -163,4 +163,4 @@ const styles = {
   }
 };
 
-export { Registration };
+export { FerreteroRegistration };

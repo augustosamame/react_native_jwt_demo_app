@@ -5,9 +5,9 @@ import axios from 'axios';
 import { ENDPOINT, USER_TYPE } from './src/config'
 import { Loading } from './src/components/common/';
 import deviceStorage from './src/services/deviceStorage.js';
-import TabNavigator from './src/TabNavigator';
 import AuthNavigator from './src/AuthNavigator';
-import MainNavigator from './src/MainNavigator';
+import MainMaestroNavigator from './src/MainMaestroNavigator';
+import MainFerreteroNavigator from './src/MainFerreteroNavigator';
 import globalStyles from './src/globalStyles';
 import * as api from './src/services/api'
 import './ReactotronConfig';
@@ -118,11 +118,29 @@ export default class App extends React.Component {
           <AuthNavigator screenProps={{setToken: this.newJWT }} />
         </View>
       );
+    }
+    if (USER_TYPE === 'maestro') {
+      return (
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <MainMaestroNavigator
+          screenProps={{ jwt: this.state.jwt,
+                         unreadMessagesCount: this.state.unreadMessagesCount,
+                         cartProductsCount: this.state.cartProductsCount,
+                         deleteToken: this.deleteJWT,
+                         getBubblesCount: this.getBubblesCount,
+                         getCartItems: this.getCartItems,
+                         cartItems: this.state.cartItems,
+                         obrasCount: this.state.obrasCount,
+                      }}
+          />
+        </View>
+      );
     } else {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <MainNavigator
+          <MainFerreteroNavigator
           screenProps={{ jwt: this.state.jwt,
                          unreadMessagesCount: this.state.unreadMessagesCount,
                          cartProductsCount: this.state.cartProductsCount,

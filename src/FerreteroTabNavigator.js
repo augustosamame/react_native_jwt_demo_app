@@ -11,10 +11,9 @@ import QuotesStackNavigator from './QuotesStackNavigator';
 import ProfileStackNavigator from './ProfileStackNavigator';
 import InitialRoute from './InitialRoute';
 
-const TabNavigator = createMaterialTopTabNavigator(
+const FerreteroTabNavigator = createMaterialTopTabNavigator(
   {
   Profile: ProfileStackNavigator,
-  Home: HomeStackNavigator,
   Quotes: QuotesStackNavigator,
   Notifications: { screen: props => <NotificationsScreen {...props.screenProps} />,
               navigationOptions: ({ screenProps }) => ({
@@ -44,7 +43,6 @@ const TabNavigator = createMaterialTopTabNavigator(
           })
 
   },
-  Cart: CartStackNavigator,
 },
   { initialRouteName: 'Profile',
     tabBarPosition: 'top',
@@ -67,14 +65,12 @@ const TabNavigator = createMaterialTopTabNavigator(
 );
 
 const screenTitles = {
-   Profile: { title: 'Hola Maestro' },
-   Home: { title: 'Selecciona la Categoría' },
-   Quotes: { title: 'Mi Historial de Cotizaciones' },
-   Notifications: { title: 'Notificaciones' },
-   Cart: { title: 'Mi Pedido' },
+   Profile: { title: 'Hola Ferretero' },
+   Quotes: { title: 'Mis Cotizaciones' },
+   Notifications: { title: 'Notificaciones' }
 };
 
-TabNavigator.navigationOptions = ({ navigation }) => {
+FerreteroTabNavigator.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const headerTitle = screenTitles[routeName].title;
   const tabBarVisible = false;
@@ -84,4 +80,4 @@ TabNavigator.navigationOptions = ({ navigation }) => {
   };
 };
 
-export default TabNavigator;
+export default FerreteroTabNavigator;
