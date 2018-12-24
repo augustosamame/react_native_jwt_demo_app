@@ -28,7 +28,8 @@
       "supportsTablet": false
     },
     "android": {
-      "package": "com.lucky.ferretero"
+      "package": "com.lucky.ferretero",
+      "permissions": ["CAMERA"],
     }
   }
 }

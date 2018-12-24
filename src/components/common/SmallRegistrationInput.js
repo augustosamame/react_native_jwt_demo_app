@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, Text } from 'react-native';
 
-const RegistrationInput = ({ label, value, onChangeText, placeholder, secureTextEntry, multiline, numberOfLines }) => {
+const SmallRegistrationInput = ({ label, value, onChangeText, placeholder, secureTextEntry, multiline, numberOfLines }) => {
 const {inputStyle, labelStyle, containerStyle } = styles;
 
   return (
@@ -35,7 +35,7 @@ const styles = {
   },
   inputStyle: {
     flex: 1,
-    width: 300,
+    width: 140,
     color: '#666',
     backgroundColor: '#fff',
     borderRadius: 10,
@@ -49,4 +49,4 @@ const styles = {
   }
 };
 
-export { RegistrationInput };
+export { SmallRegistrationInput };
